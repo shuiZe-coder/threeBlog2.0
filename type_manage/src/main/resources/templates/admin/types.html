@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>分类管理</title>
+  <link href="../../static/images/me.jpg" th:href="@{/images/me.jpg}" rel="icon" type="image/x-ico">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+  <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+</head>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script>
+  $(function () {
+    //消息提示关闭初始化
+    $('.message .close').on('click', function () {
+              $(this)
+                      .closest('.message')
+                      .transition('fade');
+    });
+
+    var currentPage = 1;
+
+    function showData(page) {
+      $("#curPage").html(page);
+      $.get("/type/" + page + "/5", function (data) {
+        for (i = 1; i < 6; i++) {
+          var item = data.data.data[i - 1];
+          if (item == undefined) {
+            $("#item" + i).hide();
+            continue;
+          } else {
+            $("#item" + i).show();
+          }
+          $("#id" + i).html(item.id);
+          $("#name" + i).html(item.name);
+        }
+      })
+    }
+
+    // 请求页面获取ajax数据渲染到html
+    showData(currentPage);
+
+    function getAllData() {
+      $.get("/type", function (data) {
+        var count = data.data.data.length;
+        $("#typeCount").html(count);
+        var pageCount = Math.floor(count/5);
+        if(count%5 != 0){
+          pageCount++;
+        }
+        $("#pageCount").html(pageCount);
+      })
+    }
+    getAllData();
+
+    $("#nextPage").click(function () {
+      currentPage++;
+      showData(currentPage);
+
+    });
+
+    $("#prePage").click(function () {
+      if (currentPage <= 1) {
+        return
+      }
+      currentPage--;
+      showData(currentPage);
+    });
+
+
+  })
+
+</script>
+<body>
+
+
+<!--导航栏-->
+<div th:replace="~{/admin/common::topbar}"></div>
+
+  <div class="m-padded-tb-hugex">
+  <div class="ui attached pointing menu">
+    <div class="ui container">
+      <div class="right menu">
+        <a href="/admin/type/add" class="item">新增</a>
+        <a href="javascript:void(0)" class="teal active item">列表</a>
+      </div>
+    </div>
+  </div>
+  </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+  <!--中间内容-->
+  <div  class="m-padded-tb-big">
+    <div class="ui container">
+      <div class="ui success message">
+        <i class="close icon"></i>
+        <div class="">提示：操作成功！</div>
+      </div>
+      <table class="ui compact teal table">
+        <thead>
+          <tr align="center">
+            <th>ID</th>
+            <th>名称</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr align="center" id="item1">
+            <td id="id1">1</td>
+            <td id="name1">我的故事</td>
+            <td>
+              <a href="#" class="ui mini teal basic button">编辑</a>
+              <a href="#"  onclick="return confirm('确定要删除该分类吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
+            </td>
+          </tr>
+          <tr align="center" id="item2">
+            <td id="id2">1</td>
+            <td id="name2">我的故事</td>
+            <td>
+              <a href="#" class="ui mini teal basic button">编辑</a>
+              <a href="#"  onclick="return confirm('确定要删除该分类吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
+            </td>
+          </tr>
+          <tr align="center" id="item3">
+            <td id="id3">1</td>
+            <td id="name3">我的故事</td>
+            <td>
+              <a href="#" class="ui mini teal basic button">编辑</a>
+              <a href="#"  onclick="return confirm('确定要删除该分类吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
+            </td>
+          </tr>
+          <tr align="center" id="item4">
+            <td id="id4">1</td>
+            <td id="name4">我的故事</td>
+            <td>
+              <a href="#" class="ui mini teal basic button">编辑</a>
+              <a href="#"  onclick="return confirm('确定要删除该分类吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
+            </td>
+          </tr>
+          <tr align="center" id="item5">
+            <td id="id5">1</td>
+            <td id="name5">我的故事</td>
+            <td>
+              <a href="#" class="ui mini teal basic button">编辑</a>
+              <a href="#"  onclick="return confirm('确定要删除该分类吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="6">
+              <div class="ui inverted divided stackable grid">
+                <div class="three wide column" align="center">
+                  <a class="item">上一页</a>
+                </div>
+
+                <div class="ten wide column" align="center">
+                  <p>第 <span id="curPage"></span> 页，共 <span id="pageCount"></span> 页，有 <span id="typeCount"></span> 个分类</p>
+                </div>
+
+                <div class="three wide column" align="center">
+                  <a class="item">下一页</a>
+                </div>
+              </div>
+              <div align="center">
+              <a href="/admin/type/add">
+                <button type="button" class="ui teal button m-mobile-wide m-margin-top"><i class="pencil icon"></i>新增</button>
+              </a>
+              </div>
+            </th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <br>
+  <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+  <!--底部栏-->
+<div th:replace="~{/admin/common::footbar}"></div>
+<div th:replace="~{/admin/common::commonJs}"></div>
+</body>
+</html>
