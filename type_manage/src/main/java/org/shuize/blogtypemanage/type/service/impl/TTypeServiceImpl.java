@@ -24,7 +24,9 @@ public class TTypeServiceImpl extends ServiceImpl<TTypeMapper, TType> implements
     @Override
     public List<TType> getByLimit(long current, long limit) {
         Page<TType> page = new Page<>(current, limit);
-        this.page(page);
+        QueryWrapper<TType> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("id");
+        this.page(page, wrapper);
         return page.getRecords();
     }
 }

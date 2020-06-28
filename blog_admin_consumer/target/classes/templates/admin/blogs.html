@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客管理</title>
+    <link href="../../static/images/me.jpg" th:href="@{/images/me.jpg}" rel="icon" type="image/x-ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var currentPage = 1;
+        var blogType;
+
+
+        function showData(page) {
+            $("#curPage").html(page);
+            $.get("/blog/" + page + "/5", function (data) {
+                for (var i = 1; i < 6; i++) {
+                    var item = data.data.data[i - 1];
+                    if (item == undefined) {
+                        $("#item" + i).hide();
+                        continue;
+                    } else {
+                        $("#item" + i).show();
+                    }
+                    $("#id" + i).html(item.id);
+                    $("#title" + i).html(item.title);
+                    $("#type" + i).html(item.type);
+                    $("#share" + i).html(item.shareStatement==false ? "否" : "是");
+                    $("#published" + i).html(item.published==false ? "草稿" : "已发布");
+                    // if (item.published == false) {
+                    //     $("#published" + i).html("草稿");
+                    // }else{
+                    //     $("published" + i).html("已发布");
+                    // }
+                    $("#updateTime" + i).html(item.updateTime);
+                }
+            })
+        }
+
+        $("#search-btn").click(function () {
+            form_data = {
+                "title": $("#searchTitle").val(),
+                // "typeId": blogType
+            }
+            if ($("#typeContent").val() != "" ){
+                form_data.typeId = blogType;
+            }
+
+            $.ajax({
+                type: 'post',
+                url: "/blog/1/5",
+                data:JSON.stringify(form_data), //将对象转为为json字符串
+                dataType:"json",
+                contentType:"application/json", //这个必须，不然后台接受时会出现乱码现象
+                success:function(data) {
+                    for (var i = 1; i < 6; i++) {
+                        var item = data.data.data[i - 1];
+                        if (item == undefined) {
+                            $("#item" + i).hide();
+                            continue;
+                        } else {
+                            $("#item" + i).show();
+                        }
+                        $("#id" + i).html(item.id);
+                        $("#title" + i).html(item.title);
+                        $("#type" + i).html(item.type);
+                        $("#share" + i).html(item.shareStatement == false ? "否" : "是");
+                        $("#published" + i).html(item.published == false ? "草稿" : "已发布");
+                        $("#updateTime" + i).html(item.updateTime);
+                    }
+                    var count = data.data.total;
+                    $("#blogCount").html(count);
+                    var pageCount = Math.floor(count/5);
+                    if(count%5 != 0){
+                        pageCount++;
+                    }
+                    $("#pageCount").html(pageCount);
+                },
+                error:function(){
+                    alert("出错了");
+                }
+            });
+
+        });
+
+
+        function typeId() {
+            if ($("#typeBox").children().length == 0) {
+                $.get('/type', function (data) {
+                    for (var i = 0; i < data.data.data.length; i++) {
+                        $("#typeBox").append('<div class="item" data-value="1">' + data.data.data[i].name + '</div>')
+                        $("#typeBox").children('div').eq(i).attr("id", data.data.data[i].id);
+
+                    }
+                    //console.log($("#typeBox").children('div').length + "the one");
+                    $("#typeBox").children('div').click(function () {
+                        //alert("调用成功");
+                        blogType = $(this).attr("id");
+                    });
+                })
+            } else {
+                return;
+            }
+        }
+
+        typeId();
+
+        // 请求页面获取ajax数据渲染到html
+        showData(currentPage);
+
+        function getAllData() {
+            $.get("/blog/all", function (data) {
+              // var count = 0;
+              var count = data.data.data.length;
+              $("#blogCount").html(count);
+              var pageCount = Math.floor(count/5);
+              if(count%5 != 0){
+                pageCount++;
+              }
+              $("#pageCount").html(pageCount);
+            })
+        }
+        getAllData();
+
+        $("#nextPage").click(function () {
+            if (currentPage >= $("#pageCount")[0].textContent){
+                return
+            }
+            currentPage++;
+            showData(currentPage);
+
+        });
+
+        $("#prePage").click(function () {
+            if (currentPage <= 1) {
+                return
+            }
+            currentPage--;
+            showData(currentPage);
+        });
+
+        $(".edit").click(function () {
+            var currentId = $(this).parent().siblings()[0].textContent;
+            if (currentId == null){
+                return
+            }
+            location.href = "/admin/article/update/" + currentId;
+        })
+    })
+</script>
+
+<!--导航栏-->
+<div th:replace="~{/admin/common::topbar}"></div>
+<div class="m-padded-tb-hugex">
+    <div class="ui attached pointing menu">
+        <div class="ui container">
+            <div class="right menu">
+                <a href="#" class=" item">发布</a>
+                <a href="#" class="teal active item">列表</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+
+<!--中间内容-->
+<div class="">
+    <div class="ui container">
+        <div class="ui secondary segment form">
+            <input type="hidden" name="page">
+            <div class="inline fields">
+                <div class="field">
+                    <input type="text" name="title" id="searchTitle" placeholder="标题">
+                </div>
+                <div class="field">
+                    <div class="ui labeled action input">
+                        <div class="ui type selection dropdown">
+                            <input type="hidden" name="typeId" id="typeContent">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">分类</div>
+                            <div class="menu" id="typeBox">
+<!--                                <div class="item" data-value="1">我的故事</div>-->
+                            </div>
+                        </div>
+                        <button id="clear-btn" class="ui compact button">clear</button>
+                    </div>
+
+                </div>
+                <!--<div class="field">-->
+                <!--<div class="ui checkbox">-->
+                <!--<input type="checkbox" id="recommend" name="recommend">-->
+                <!--<label for="recommend">推荐</label>-->
+                <!--</div>-->
+                <!--</div>-->
+                <div class="field">
+                    <button type="button" id="search-btn" class="ui mini teal basic button"><i class="search icon"></i>搜索
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="table-container">
+            <table class="ui compact teal table">
+                <thead>
+                <tr align="center">
+                    <th>ID</th>
+                    <th>标题</th>
+                    <th>类型</th>
+                    <th>推荐</th>
+                    <th>状态</th>
+                    <th>更新时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr align="center" id="item1">
+                    <td id="id1">1</td>
+                    <td id="title1">大圣，此去欲何?</td>
+                    <td id="type1">我的故事</td>
+                    <td id="share1">是</td>
+                    <td id="published1">草稿</td>
+                    <td id="updateTime1">2020-01-02 05:20</td>
+                    <td>
+                        <!--th:href="@{/admin/types/{id}/input(id=${type.id})}"-->
+                        <a href="#" class="ui mini teal basic button edit">编辑</a>
+                        <a href="#" onclick="return confirm('确定要删除该文章吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
+                    </td>
+                </tr>
+
+                <tr align="center" id="item2">
+                    <td id="id2">1</td>
+                    <td id="title2">大圣，此去欲何?</td>
+                    <td id="type2">我的故事</td>
+                    <td id="share2">是</td>
+                    <td id="published2">草稿</td>
+                    <td id="updateTime2">2020-01-02 05:20</td>
+                    <td>
+                        <!--th:href="@{/admin/types/{id}/input(id=${type.id})}"-->
+                        <a href="#" class="ui mini teal basic button edit">编辑</a>
+                        <a href="#" onclick="return confirm('确定要删除该文章吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
+                    </td>
+                </tr>
+                <tr align="center" id="item3">
+                    <td id="id3">1</td>
+                    <td id="title3">大圣，此去欲何?</td>
+                    <td id="type3">我的故事</td>
+                    <td id="share3">是</td>
+                    <td id="published3">草稿</td>
+                    <td id="updateTime3">2020-01-02 05:20</td>
+                    <td>
+                        <!--th:href="@{/admin/types/{id}/input(id=${type.id})}"-->
+                        <a href="#" class="ui mini teal basic button edit">编辑</a>
+                        <a href="#" onclick="return confirm('确定要删除该文章吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
+                    </td>
+                </tr>
+                <tr align="center" id="item4">
+                    <td id="id4">1</td>
+                    <td id="title4">大圣，此去欲何?</td>
+                    <td id="type4">我的故事</td>
+                    <td id="share4">是</td>
+                    <td id="published4">草稿</td>
+                    <td id="updateTime4">2020-01-02 05:20</td>
+                    <td>
+                        <!--th:href="@{/admin/types/{id}/input(id=${type.id})}"-->
+                        <a href="#" class="ui mini teal basic button edit">编辑</a>
+                        <a href="#" onclick="return confirm('确定要删除该文章吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
+                    </td>
+                </tr>
+                <tr align="center" id="item5">
+                    <td id="id5">1</td>
+                    <td id="title5">大圣，此去欲何?</td>
+                    <td id="type5">我的故事</td>
+                    <td id="share5">是</td>
+                    <td id="published5">草稿</td>
+                    <td id="updateTime5">2020-01-02 05:20</td>
+                    <td>
+                        <!--th:href="@{/admin/types/{id}/input(id=${type.id})}"-->
+                        <a href="#" class="ui mini teal basic button edit">编辑</a>
+                        <a href="#" onclick="return confirm('确定要删除该文章吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th colspan="7">
+                        <div class="ui inverted divided stackable grid">
+                            <div class="three wide column" align="center">
+                                <a class="item" id="prePage" href="javascript:void(0)">上一页</a>
+                            </div>
+
+                            <div class="ten wide column" align="center">
+                                <p>第 <span id="curPage"></span> 页，共 <span id="pageCount"></span> 页，有 <span id="blogCount"></span> 篇文章</p>
+                            </div>
+
+                            <div class="three wide column" align="center">
+                                <a class="item" id="nextPage" href="javascript:void(0)">下一页</a>
+                            </div>
+                        </div>
+                        <div align="center">
+                            <a href="/admin/article/add">
+                                <button type="button" class="ui teal button m-mobile-wide m-margin-top"><i
+                                        class="pencil icon"></i>新增
+                                </button>
+                            </a>
+                        </div>
+                    </th>
+                </tr>
+                </tfoot>
+            </table>
+
+<!--            <div class="ui success message">-->
+<!--                <i class="close icon"></i>-->
+<!--                <div class="">提示：操作成功！</div>-->
+<!--            </div>-->
+
+        </div>
+
+    </div>
+</div>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<!--底部栏-->
+<div th:replace="~{/admin/common::footbar}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script>
+    // $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
+
+    // 运行时间统计
+    function secondToDate(second) {
+        if (!second) {
+            return 0;
+        }
+        var time = new Array(0, 0, 0, 0, 0);
+        if (second >= 365 * 24 * 3600) {
+            time[0] = parseInt(second / (365 * 24 * 3600));
+            second %= 365 * 24 * 3600;
+        }
+        if (second >= 24 * 3600) {
+            time[1] = parseInt(second / (24 * 3600));
+            second %= 24 * 3600;
+        }
+        if (second >= 3600) {
+            time[2] = parseInt(second / 3600);
+            second %= 3600;
+        }
+        if (second >= 60) {
+            time[3] = parseInt(second / 60);
+            second %= 60;
+        }
+        if (second > 0) {
+            time[4] = second;
+        }
+        return time;
+    }
+
+    function setTime() {
+        /*此处为网站的创建时间*/
+        var create_time = Math.round(new Date(Date.UTC(2020, 01, 25, 15, 15, 15)).getTime() / 1000);
+        var timestamp = Math.round((new Date().getTime() + 8 * 60 * 60 * 1000) / 1000);
+        currentTime = secondToDate((timestamp - create_time));
+        currentTimeHtml = currentTime[0] + '年' + currentTime[1] + '天'
+            + currentTime[2] + '时' + currentTime[3] + '分' + currentTime[4]
+            + '秒';
+        document.getElementById("htmer_time").innerHTML = currentTimeHtml;
+    }
+
+    setInterval(setTime, 1000);
+
+
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+
+    //消息提示关闭初始化
+    $('.message .close')
+        .on('click', function () {
+            $(this)
+                .closest('.message')
+                .transition('fade');
+        });
+
+    $('#clear-btn')
+        .on('click', function () {
+            $("#searchTitle").val(null);
+            $('.ui.type.dropdown')
+                .dropdown('clear');
+            blogType = undefined;
+        });
+
+    function page(obj) {
+        $("[name='page']").val($(obj).data("page"));
+        loaddata();
+    }
+
+    // $("#search-btn").click(function () {
+    //     $("[name='page']").val(0);
+    //     loaddata();
+    // });
+
+    // function loaddata() {
+    //     $("#table-container").load(/*[[@{/admin/blogs/search}]]*/"/admin/blogs/search", {
+    //         title: $("[name='title']").val(),
+    //         typeId: $("[name='typeId']").val(),
+    //         page: $("[name='page']").val()
+    //     });
+    // }
+
+</script>
+</body>
+</html>

@@ -21,17 +21,19 @@ import java.util.List;
 @RestController
 @RequestMapping("/type")
 public class TTypeController {
+
     @Autowired
     private TTypeService typeService;
 
     @GetMapping
     public RespUtil getAllBlogType(){
+//        System.out.println("远程调用");
         List<TType> types = typeService.list(null);
         return RespUtil.ok().data("data", types);
     }
 
     @GetMapping("/{current}/{limit}")
-    public RespUtil getLimitBlogType(@PathVariable long current, @PathVariable long limit){
+    public RespUtil getLimitBlogType(@PathVariable("current") long current, @PathVariable("limit") long limit){
         List<TType> types = typeService.getByLimit(current, limit);
         return RespUtil.ok().data("data", types);
     }
@@ -66,6 +68,5 @@ public class TTypeController {
             return RespUtil.error().data("data", "博客类型修改失败");
         }
     }
-
 }
 

@@ -37,7 +37,7 @@ public class TBlogController {
     }
 
     @GetMapping("/{current}/{limit}")
-    public RespUtil blogByPage(@PathVariable long current, @PathVariable long limit){
+    public RespUtil blogByPage(@PathVariable("current") long current, @PathVariable("limit") long limit){
         Page<TBlog> page = new Page<>(current, limit);
         QueryWrapper<TBlog> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("update_time");
@@ -47,7 +47,7 @@ public class TBlogController {
     }
 
     @PostMapping("/{current}/{limit}")
-    public RespUtil selectByInfo(@PathVariable long current, @PathVariable long limit,
+    public RespUtil selectByInfo(@PathVariable("current") long current, @PathVariable("limit") long limit,
                                  @RequestBody(required = false) BlogInfoVo blogInfoVo){
         Page page = blogService.selectByInfo(blogInfoVo, current, limit);
         List<TBlog> blogs = page.getRecords();
@@ -57,7 +57,7 @@ public class TBlogController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public RespUtil delBlog(@PathVariable long id){
+    public RespUtil delBlog(@PathVariable("id") Long id){
         boolean isTrue = blogService.removeById(id);
         if (isTrue){
             return RespUtil.ok().message("删除博客成功");
@@ -68,7 +68,7 @@ public class TBlogController {
 
     @GetMapping("/{id}")
     @Transactional
-    public RespUtil getBlog(@PathVariable Long id){
+    public RespUtil getBlog(@PathVariable("id") Long id){
         TBlog blog = blogService.getById(id);
         if (blog != null){
             return RespUtil.ok().message("查询博客成功").data("data", blog);

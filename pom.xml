@@ -19,6 +19,7 @@
         <module>type_manage</module>
         <module>eureka-server01</module>
         <module>login-manage-provider</module>
+        <module>blog_admin_consumer</module>
     </modules>
     <packaging>pom</packaging>
 

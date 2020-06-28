@@ -29,7 +29,7 @@ public class TTypeController {
     };
 
     @GetMapping("/type/{current}/{limit}")
-    public RespUtil getLimitBlogType(@PathVariable long current, @PathVariable long limit){
+    public RespUtil getLimitBlogType(@PathVariable("current") long current, @PathVariable("limit") long limit){
         return typeRemoteCallerService.getLimitBlogType(current, limit);
     };
 
