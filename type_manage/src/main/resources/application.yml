@@ -9,11 +9,7 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
 
-  thymeleaf:
-    cache: false
-    mode: HTML
-    prefix: classpath:templates/
-    suffix: .html
+
 
   datasource:
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver

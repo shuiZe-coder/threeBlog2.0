@@ -34,3 +34,10 @@ eureka:
     prefer-ip-address: true
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
 
+ribbon:
+  ConnectTimeout: 5000 # 请求连接的超时时间 默认的时间为 1 秒
+  ReadTimeout: 5000    # 请求处理的超时时间
+
+feign:
+  httpclient:
+    enabled: true

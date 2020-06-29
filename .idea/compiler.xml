@@ -13,6 +13,7 @@
         <module name="blog_manage" />
         <module name="type_manage" />
         <module name="eureka-server01" />
+        <module name="picture-manage" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="11" />
@@ -23,6 +24,7 @@
       <module name="blog_manage" options="-parameters" />
       <module name="eureka-server01" options="-parameters" />
       <module name="login-manage-provider" options="-parameters" />
+      <module name="picture-manage" options="-parameters" />
       <module name="type_manage" options="-parameters" />
     </option>
   </component>
