@@ -35,9 +35,9 @@
             <div class="required field">
                 <div class="ui left labeled input">
                     <div class="ui selection compact teal basic dropdown label">
-                        <input type="hidden" value="原创" name="flag">
+                        <input type="hidden" value="" name="flag" id="flag">
                         <i class="dropdown icon"></i>
-                        <div class="text">原创</div>
+                        <div class="text" id="flags"></div>
                         <div class="menu">
                             <div class="item" data-value="原创">原创</div>
                             <div class="item" data-value="转载">转载</div>
@@ -234,6 +234,7 @@
         var typeId = $("#type").nameId;
         var firstPicture = $("#firstPictures").val();
         var description = $("#descriptions").val();
+        var flag = $("#flags").html();
 
         //设置表单
         var form_data = {
@@ -243,6 +244,7 @@
             "typeId": blogType,
             "firstPicture": firstPicture,
             "description": description,
+            "flag":flag,
             "published": published,
 
         };
@@ -321,6 +323,7 @@
             }); //通过typeId获取tpye
             $("#firstPictures").val(data.data.data.firstPicture);
             $("#descriptions").html(data.data.data.description);
+            $("#flags").html(data.data.data.flag);
             $("#recommend").prop("checked", data.data.data.recommend);// 推荐框
             $("#shareStatement").prop("checked", data.data.data.shareStatement); //转载声明框
             $("#appreciation").prop("checked", data.data.data.appreciation); //赞赏框
