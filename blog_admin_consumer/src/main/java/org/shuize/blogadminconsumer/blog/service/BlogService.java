@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 //@Service
 @FeignClient("BLOG-MANAGE-SERVICE-PROVIDER")
 public interface BlogService {
@@ -34,4 +36,10 @@ public interface BlogService {
 
     @PutMapping("/blog")
     public RespUtil updateBlog(@RequestBody TBlog blog);
+
+    @GetMapping("/blog/latestRecommended/{current}/{limit}")
+    public RespUtil getLastestRecommended(
+            @PathVariable("current") Long current,
+            @PathVariable("limit") Long limit,
+            @RequestParam(value = "isRecommend", required = false) Integer isRecommend);
 }
