@@ -82,7 +82,7 @@
         }
 
         function setRecommendBlogData() {
-            $.get("/blog/latestRecommended/1/10?isRecommend=1", function (data) {
+            $.get("/blog/latestRecommended/1/4?isRecommend=1", function (data) {
                 items = data.data.data;
                 for (var i=1; i <= items.length; i++) {
                     $("#recommends").append("<div class=\"m-margin-tb-tiny four wide column\"" +"id=\"recommend" + i + "\"" +">\n" +

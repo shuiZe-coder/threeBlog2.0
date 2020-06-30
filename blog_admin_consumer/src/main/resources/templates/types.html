@@ -10,6 +10,99 @@
 </head>
 <body>
 
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script>
+
+  var typeId = location.href.match(new RegExp(new RegExp(".*?/types/(.*)")));
+  // 渲染博客类型标签
+  function setTypeDiv() {
+
+    $.get("/blog/count", function (data) {
+      items = data.data.data;
+
+      for (var i=0; i < items.length; i++){
+        $("#typesBox").append("<div class=\"ui labeled button m-margin-tb-tiny\" id=\"te" + items[i].id +"\">\n" +
+                "          <a href=\"/types/" + items[i].id + "\""  + "class=\"ui basic  button\">" +items[i].name + "</a>\n" +
+                "          <div class=\"ui basic  left pointing label\">" + items[i].blogCount + "</div>\n" +
+                "        </div>");
+      }
+
+
+
+      if (typeId == null){
+        $("#te" + items[0].id).children("a").addClass("teal");
+        $("#te" + item[0]).children("div").addClass("teal")
+      }else{
+        $("#te" + typeId[1]).children("a").addClass("teal");
+        $("#te" + typeId[1]).children("div").addClass("teal");
+      }
+
+    })
+
+  }
+  setTypeDiv();
+
+  // 渲染具体博客
+  function setBlogDetail() {
+    form_data = {
+      "typeId": typeId==null ? items[0].id : typeId[1],
+    }
+    $.ajaxSetup({
+      contentType:'application/json'
+    })
+    $.post("/blog/1/1000000", JSON.stringify(form_data), function (data) {
+      // console.log(data);
+      var blogs = data.data.data;
+      for (var i=0; i<blogs.length; i++){
+        $("#mainBlog").append("<div class=\"ui top attached teal m-opacity segment\">\n" +
+                "      <div class=\"ui padded vertical segment m-padded-tb-large\">\n" +
+                "        <div class=\"ui middle aligned mobile reversed stackable grid\" >\n" +
+                "          <div class=\"eleven wide column\">\n" +
+                "            <h3 class=\"ui header\" ><a href=\"/bg/" + blogs[i].id + "\">" +blogs[i].title + "</a></h3>\n" +
+                "            <p class=\"m-text\">" + blogs[i].description + "</p>\n" +
+                "            <div class=\"ui grid\">\n" +
+                "              <div class=\"eleven wide column\">\n" +
+                "                <div class=\"ui mini horizontal link list\">\n" +
+                "                  <div class=\"item\">\n" +
+                "                    <img src=\"" + blogs[i].firstPicture + "\"  alt=\"\" class=\"ui avatar image\">\n" +
+                "                    <div class=\"content\"><a href=\"javascript:void(0)\" target=\"_blank\" class=\"header\">oneStar</a></div>\n" +
+                "                  </div>\n" +
+                "                  <div class=\"item\">\n" +
+                "                    <i class=\"calendar icon\"></i><span>2020-01-01</span>\n" +
+                "                  </div>\n" +
+                "                  <div class=\"item\">\n" +
+                "                    <i class=\"eye icon\"></i> <span>2222</span>\n" +
+                "                  </div>\n" +
+                "                  <div class=\"item\">\n" +
+                "                    <i class=\"comment outline icon\"></i> <span>2222</span>\n" +
+                "                  </div>\n" +
+                "                </div>\n" +
+                "              </div>\n" +
+                "              <div class=\"right aligned five wide column\">\n" +
+                "                <a href=\"#\" target=\"_blank\" class=\"ui teal basic label m-padded-tiny m-text-thin\">好文</a>\n" +
+                "              </div>\n" +
+                "            </div>\n" +
+                "\n" +
+                "          </div>\n" +
+                "\n" +
+                "          <div class=\"five wide column\">\n" +
+                "            <a href=\"/bg/" +blogs[i].id  + "\" target=\"_blank\">\n" +
+                "              <img src=\"/" + blogs[i].firstPicture + "\" alt=\"\" class=\"ui rounded image\">\n" +
+                "            </a>\n" +
+                "          </div>\n" +
+                "\n" +
+                "        </div>\n" +
+                "      </div>\n" +
+                "    </div>")
+      }
+    }, "json")
+  }
+
+  setBlogDetail();
+
+
+</script>
+
 <!--导航-->
 <div th:replace="~{commons::topbar}"></div>
 
@@ -30,14 +123,12 @@
 <div  class="m-margin- animated fadeIn">
   <div class="ui container">
     <div class="ui segment m-padded-tb-large m-opacity">
-      <div class="ui container" align="center">
-        <div class="ui labeled button m-margin-tb-tiny">
-          <a href="#" class="ui basic  button">好文</a>
-          <div class="ui basic  left pointing label">24</div>
-        </div>
+      <div class="ui container" align="center" id="typesBox">
+
       </div>
     </div>
 
+    <div id="mainBlog">
     <div class="ui top attached teal m-opacity segment">
       <div class="ui padded vertical segment m-padded-tb-large">
         <div class="ui middle aligned mobile reversed stackable grid" >
@@ -66,6 +157,7 @@
                 <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">好文</a>
               </div>
             </div>
+
           </div>
 
           <div class="five wide column">
@@ -77,6 +169,8 @@
         </div>
       </div>
     </div>
+    </div>
+
 
     <!--分页-->
     <div class="ui bottom attached segment m-opacity stackable grid">
@@ -101,7 +195,7 @@
 <!--底部栏-->
 <div th:replace="~{commons::footbar}"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
 
 

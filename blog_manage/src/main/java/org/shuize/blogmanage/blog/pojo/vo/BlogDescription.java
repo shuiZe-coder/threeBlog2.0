@@ -13,6 +13,8 @@ public class BlogDescription {
     private String title;
     private String type;
     private Boolean shareStatement;
+    private String description;
+    private String firstPicture;
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     private Date updateTime;
     private Boolean published;

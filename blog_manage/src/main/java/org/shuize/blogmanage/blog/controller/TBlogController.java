@@ -7,10 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.models.auth.In;
 import javassist.NotFoundException;
 import org.shuize.blogmanage.blog.pojo.TBlog;
-import org.shuize.blogmanage.blog.pojo.vo.BlogAndType;
-import org.shuize.blogmanage.blog.pojo.vo.BlogDescription;
-import org.shuize.blogmanage.blog.pojo.vo.BlogDetail;
-import org.shuize.blogmanage.blog.pojo.vo.BlogInfoVo;
+import org.shuize.blogmanage.blog.pojo.vo.*;
 import org.shuize.blogmanage.blog.service.TBlogService;
 import org.shuize.commonapi.RespUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +54,12 @@ public class TBlogController {
         List<TBlog> blogs = page.getRecords();
         List<BlogDescription> bds = blogService.selBlogDescription(blogs);
         return RespUtil.ok().data("data", bds).data("total", page.getTotal());
+    }
+
+    @GetMapping("/count")
+    public RespUtil getBlogCountByType(){
+        List<TypeAndBlogCount> blogCountByType = blogService.getBlogCountByType();
+        return RespUtil.ok().data("data", blogCountByType);
     }
 
     @DeleteMapping("/{id}")

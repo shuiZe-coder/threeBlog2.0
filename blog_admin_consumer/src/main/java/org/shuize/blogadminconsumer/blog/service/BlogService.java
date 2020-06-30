@@ -15,6 +15,9 @@ import java.util.List;
 @FeignClient("BLOG-MANAGE-SERVICE-PROVIDER")
 public interface BlogService {
 
+    @GetMapping("/blog/count")
+    public RespUtil getBlogCountByType();
+
     @GetMapping("/blog/all")
     public RespUtil all();
 
@@ -45,4 +48,6 @@ public interface BlogService {
 
     @GetMapping("/blog/detail/{id}")
     public RespUtil getBlogDetailById(@PathVariable("id") Long id);
+
+
 }
