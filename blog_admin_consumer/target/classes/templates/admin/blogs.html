@@ -30,8 +30,8 @@
                     $("#id" + i).html(item.id);
                     $("#title" + i).html(item.title);
                     $("#type" + i).html(item.type);
-                    $("#share" + i).html(item.shareStatement==false ? "否" : "是");
-                    $("#published" + i).html(item.published==false ? "草稿" : "已发布");
+                    $("#share" + i).html(item.shareStatement == false ? "否" : "是");
+                    $("#published" + i).html(item.published == false ? "草稿" : "已发布");
                     // if (item.published == false) {
                     //     $("#published" + i).html("草稿");
                     // }else{
@@ -47,17 +47,17 @@
                 "title": $("#searchTitle").val(),
                 // "typeId": blogType
             }
-            if ($("#typeContent").val() != "" ){
+            if ($("#typeContent").val() != "") {
                 form_data.typeId = blogType;
             }
 
             $.ajax({
                 type: 'post',
                 url: "/blog/1/5",
-                data:JSON.stringify(form_data), //将对象转为为json字符串
-                dataType:"json",
-                contentType:"application/json", //这个必须，不然后台接受时会出现乱码现象
-                success:function(data) {
+                data: JSON.stringify(form_data), //将对象转为为json字符串
+                dataType: "json",
+                contentType: "application/json", //这个必须，不然后台接受时会出现乱码现象
+                success: function (data) {
                     for (var i = 1; i < 6; i++) {
                         var item = data.data.data[i - 1];
                         if (item == undefined) {
@@ -75,13 +75,13 @@
                     }
                     var count = data.data.total;
                     $("#blogCount").html(count);
-                    var pageCount = Math.floor(count/5);
-                    if(count%5 != 0){
+                    var pageCount = Math.floor(count / 5);
+                    if (count % 5 != 0) {
                         pageCount++;
                     }
                     $("#pageCount").html(pageCount);
                 },
-                error:function(){
+                error: function () {
                     alert("出错了");
                 }
             });
@@ -115,20 +115,21 @@
 
         function getAllData() {
             $.get("/blog/all", function (data) {
-              // var count = 0;
-              var count = data.data.data.length;
-              $("#blogCount").html(count);
-              var pageCount = Math.floor(count/5);
-              if(count%5 != 0){
-                pageCount++;
-              }
-              $("#pageCount").html(pageCount);
+                // var count = 0;
+                var count = data.data.data.length;
+                $("#blogCount").html(count);
+                var pageCount = Math.floor(count / 5);
+                if (count % 5 != 0) {
+                    pageCount++;
+                }
+                $("#pageCount").html(pageCount);
             })
         }
+
         getAllData();
 
         $("#nextPage").click(function () {
-            if (currentPage >= $("#pageCount")[0].textContent){
+            if (currentPage >= $("#pageCount")[0].textContent) {
                 return
             }
             currentPage++;
@@ -146,7 +147,7 @@
 
         $(".edit").click(function () {
             var currentId = $(this).parent().siblings()[0].textContent;
-            if (currentId == null){
+            if (currentId == null) {
                 return
             }
             location.href = "/admin/article/update/" + currentId;
@@ -187,7 +188,7 @@
                             <i class="dropdown icon"></i>
                             <div class="default text">分类</div>
                             <div class="menu" id="typeBox">
-<!--                                <div class="item" data-value="1">我的故事</div>-->
+                                <!--                                <div class="item" data-value="1">我的故事</div>-->
                             </div>
                         </div>
                         <button id="clear-btn" class="ui compact button">clear</button>
@@ -231,7 +232,7 @@
                     <td>
                         <!--th:href="@{/admin/types/{id}/input(id=${type.id})}"-->
                         <a href="#" class="ui mini teal basic button edit">编辑</a>
-                        <a href="#" onclick="return confirm('确定要删除该文章吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
+                        <a href="#" id="delete" class="ui mini red basic button buttons">删除</a>
                     </td>
                 </tr>
 
@@ -245,7 +246,7 @@
                     <td>
                         <!--th:href="@{/admin/types/{id}/input(id=${type.id})}"-->
                         <a href="#" class="ui mini teal basic button edit">编辑</a>
-                        <a href="#" onclick="return confirm('确定要删除该文章吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
+                        <a href="#" class="ui mini red basic button buttons">删除</a>
                     </td>
                 </tr>
                 <tr align="center" id="item3">
@@ -258,7 +259,7 @@
                     <td>
                         <!--th:href="@{/admin/types/{id}/input(id=${type.id})}"-->
                         <a href="#" class="ui mini teal basic button edit">编辑</a>
-                        <a href="#" onclick="return confirm('确定要删除该文章吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
+                        <a href="#" class="ui mini red basic button buttons">删除</a>
                     </td>
                 </tr>
                 <tr align="center" id="item4">
@@ -271,7 +272,7 @@
                     <td>
                         <!--th:href="@{/admin/types/{id}/input(id=${type.id})}"-->
                         <a href="#" class="ui mini teal basic button edit">编辑</a>
-                        <a href="#" onclick="return confirm('确定要删除该文章吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
+                        <a href="#" class="ui mini red basic button  buttons">删除</a>
                     </td>
                 </tr>
                 <tr align="center" id="item5">
@@ -284,7 +285,7 @@
                     <td>
                         <!--th:href="@{/admin/types/{id}/input(id=${type.id})}"-->
                         <a href="#" class="ui mini teal basic button edit">编辑</a>
-                        <a href="#" onclick="return confirm('确定要删除该文章吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
+                        <a href="#" class="ui mini red basic button  buttons">删除</a>
                     </td>
                 </tr>
                 </tbody>
@@ -297,7 +298,8 @@
                             </div>
 
                             <div class="ten wide column" align="center">
-                                <p>第 <span id="curPage"></span> 页，共 <span id="pageCount"></span> 页，有 <span id="blogCount"></span> 篇文章</p>
+                                <p>第 <span id="curPage"></span> 页，共 <span id="pageCount"></span> 页，有 <span
+                                        id="blogCount"></span> 篇文章</p>
                             </div>
 
                             <div class="three wide column" align="center">
@@ -316,10 +318,10 @@
                 </tfoot>
             </table>
 
-<!--            <div class="ui success message">-->
-<!--                <i class="close icon"></i>-->
-<!--                <div class="">提示：操作成功！</div>-->
-<!--            </div>-->
+            <!--            <div class="ui success message">-->
+            <!--                <i class="close icon"></i>-->
+            <!--                <div class="">提示：操作成功！</div>-->
+            <!--            </div>-->
 
         </div>
 
@@ -429,6 +431,34 @@
     //         page: $("[name='page']").val()
     //     });
     // }
+
+
+    //删除事件
+    function rec() {
+        var message = confirm("确认要删除该文章吗? 三思啊! 删了可就没了!"); //返回true或false
+
+        if (message == true) {
+            $.ajax({
+                url: "/blog/" + id,
+                type: "DELETE",
+                success: function (data) {
+                    location.href = "/admin/article/manage";
+                }
+            })
+        } else {
+            return;
+        }
+    }
+
+    //获取博客ID
+    var id;
+    $(".buttons").click(function () {
+        id = $(this).parent().siblings().eq(0).html();
+        //调用删除事件
+        rec();
+
+    });
+
 
 </script>
 </body>
