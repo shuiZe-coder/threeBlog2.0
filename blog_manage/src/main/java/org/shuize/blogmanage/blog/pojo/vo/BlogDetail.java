@@ -1,35 +1,47 @@
 package org.shuize.blogmanage.blog.pojo.vo;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import io.swagger.annotations.ApiModel;
-import lombok.Data;
 
-import java.io.Serializable;
+import lombok.Data;
+import lombok.ToString;
+
 import java.util.Date;
 
-@Data
-@ApiModel(value="包含Type的TBlog对象", description="")
-public class BlogAndType implements Serializable {
 
-    private Long id;
+@Data
+@ToString
+public class BlogDetail {
+
+    private Boolean appreciation;
+
+    private Boolean commentabled;
+
+    private String content;
+
+    private Date createTime;
 
     private String description;
 
     private String firstPicture;
 
+    private String flag;
+
+    private Boolean published;
+
     private Boolean recommend;
+
+    private Boolean shareStatement;
 
     private String title;
 
     private Date updateTime;
 
-    private Long userId;
-
     private Integer views;
+
+    private Long typeId;
+
+    private Long userId;
 
     private Integer commentCount;
 
     private String typeName;
-
 }

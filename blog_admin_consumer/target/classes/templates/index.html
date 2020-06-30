@@ -15,9 +15,6 @@
 <script>
     $(function () {
 
-
-
-
         function setMainBlogData() {
             $.get("/blog/latestRecommended/1/10?isRecommend=0", function (data) {
                 items = data.data.data;
@@ -27,7 +24,7 @@
                         "                    <div class=\"ui large aligned mobile reversed stackable grid\">\n" +
                         "                        <!--博文信息-->\n" +
                         "                        <div class=\"eleven wide column \">\n" +
-                        "                            <h3 class=\"ui header\" ><a href=\"#\" target=\"_blank\" class=\"m-black\">大圣，此去欲何?</a></h3>\n" +
+                        "                            <a href='#' class='blogTitle'><h3 class=\"ui header\" >大圣，此去欲何?</h3></a>\n" +
                         "                            <p class=\"m-text m-margin-top-max\">戴上金箍，没法爱你；放下金箍，没法保护你。我知道上天不会给我第二次机会，曾经我们说好的永远，原来也仅仅只有，十二画，而已。“大圣，此去欲何?”“踏南天，碎凌霄。”“若一去不回……”“便一去不回” 其实很多时候，我们都是有机会的，最后真正放弃的，是我们自己。......</p>\n" +
                         "                            <div class=\"ui m-margin-top-max grid\">\n" +
                         "                                <div class=\"eleven wide column\">\n" +
@@ -54,7 +51,7 @@
                         "                        </div>\n" +
                         "                        <!--博文图片-->\n" +
                         "                        <div class=\"five wide column\">\n" +
-                        "                            <a href=\"#\" target=\"_blank\">\n" +
+                        "                            <a href=\"#\" target=\"_blank\" class='blogPicture'>\n" +
                         "                                <img src=\"images/backimg1.jpg\" alt=\"\" class=\"ui rounded image\">\n" +
                         "                            </a>\n" +
                         "                        </div>\n" +
@@ -74,6 +71,8 @@
                         $("#mainBlog" + i).find(".update_time").html(items[i - 1].updateTime);
                         $("#mainBlog" + i).find(".views").html(items[i - 1].views == null ? 0 : items[i - 1].views);
                         $("#mainBlog" + i).find(".messages").html(items[i - 1].commentCount == null ? 0 : items[i - 1].commentCount);
+                        $("#mainBlog"+ i).find(".blogPicture").attr("href", "/bg/" + items[i - 1].id);
+                        $("#mainBlog"+ i).find(".blogTitle").attr("href", "/bg/" + items[i - 1].id);
 
                     }else {
                         $("#recommend" + i).css("visibility", "hidden")
@@ -100,6 +99,7 @@
                     if (items != undefined) {
                         $("#recommend" + i).children().children('span').children('h4').html(items[i - 1].title);
                         $("#recommend" + i).children().children('img').attr("src", items[i - 1].firstPicture)
+                        $("#recommend" + i).find("a").attr("href", "/bg/" + items[i - 1].id);
                     }
                 }
             })
@@ -149,8 +149,8 @@
             <div align="center">QQ</div>
         </div>
 
-        <h3 class="m-font-size-text" align="center">欢迎来到我
-            的客栈，我是一颗星，夜空中最亮的那颗</h3>
+        <h3 class="m-font-size-text" align="center">欢迎来到我们
+            的客栈，</h3>
         <hr style="width: 30%">
         <h5 class="m-font-size-text-init-title m-margin-top-large">“大圣，此去欲何?”</h5>
         <h5 class="m-font-size-text-init-title">“踏南天，碎凌霄”</h5>

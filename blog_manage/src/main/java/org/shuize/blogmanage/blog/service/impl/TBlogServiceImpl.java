@@ -4,13 +4,16 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.swagger.models.auth.In;
+import javassist.NotFoundException;
 import org.shuize.blogmanage.blog.mapper.TBlogMapper;
 import org.shuize.blogmanage.blog.pojo.TBlog;
 import org.shuize.blogmanage.blog.pojo.vo.BlogAndType;
 import org.shuize.blogmanage.blog.pojo.vo.BlogDescription;
+import org.shuize.blogmanage.blog.pojo.vo.BlogDetail;
 import org.shuize.blogmanage.blog.pojo.vo.BlogInfoVo;
 import org.shuize.blogmanage.blog.service.TBlogService;
 import org.shuize.blogmanage.blog.service.TypeRemoteCallerService;
+import org.shuize.blogmanage.util.MarkdownUtils;
 import org.shuize.blogtypemanage.type.pojo.TType;
 import org.shuize.blogtypemanage.type.service.TTypeService;
 import org.shuize.commonapi.RespUtil;
@@ -93,6 +96,21 @@ public class TBlogServiceImpl extends ServiceImpl<TBlogMapper, TBlog> implements
             blogAndType.setTypeName(typeName);
             result.add(blogAndType);
         }
+        return result;
+    }
+
+    @Override
+    public BlogDetail getBlogDetailById(Long id) throws NotFoundException {
+        TBlog byId = this.getById(id);
+        BlogDetail result = new BlogDetail();
+        if (result == null){
+            throw new NotFoundException("该博客不存在");
+        }
+        BeanUtils.copyProperties(byId, result);
+        String typeName = (String)typeRemoteCallerService.getTypeById(byId.getTypeId()).getData().get("name");
+        String content = result.getContent();
+        result.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+        result.setTypeName(typeName);
         return result;
     }
 

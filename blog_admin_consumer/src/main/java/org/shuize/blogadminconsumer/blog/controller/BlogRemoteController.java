@@ -60,4 +60,11 @@ public class BlogRemoteController {
             @RequestParam(value = "isRecommend", required = false) Integer isRecommend){
         return blogService.getLastestRecommended(current, limit, isRecommend);
     }
+
+    @GetMapping("/blog/detail/{id}")
+    public RespUtil getBlogDetailById(@PathVariable("id") Long id){
+        return blogService.getBlogDetailById(id);
+    };
+
+
 }

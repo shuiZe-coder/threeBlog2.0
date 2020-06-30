@@ -42,4 +42,7 @@ public interface BlogService {
             @PathVariable("current") Long current,
             @PathVariable("limit") Long limit,
             @RequestParam(value = "isRecommend", required = false) Integer isRecommend);
+
+    @GetMapping("/blog/detail/{id}")
+    public RespUtil getBlogDetailById(@PathVariable("id") Long id);
 }

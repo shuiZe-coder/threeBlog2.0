@@ -5,9 +5,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.models.auth.In;
+import javassist.NotFoundException;
 import org.shuize.blogmanage.blog.pojo.TBlog;
 import org.shuize.blogmanage.blog.pojo.vo.BlogAndType;
 import org.shuize.blogmanage.blog.pojo.vo.BlogDescription;
+import org.shuize.blogmanage.blog.pojo.vo.BlogDetail;
 import org.shuize.blogmanage.blog.pojo.vo.BlogInfoVo;
 import org.shuize.blogmanage.blog.service.TBlogService;
 import org.shuize.commonapi.RespUtil;
@@ -112,5 +114,14 @@ public class TBlogController {
         return RespUtil.ok().data("data", blogs);
     }
 
+    @GetMapping("/detail/{id}")
+    public RespUtil getBlogDetailById(@PathVariable("id") Long id) throws NotFoundException {
+        BlogDetail blogDetailById = blogService.getBlogDetailById(id);
+        if (blogDetailById != null) {
+            return RespUtil.ok().data("data", blogDetailById);
+        }else{
+            return RespUtil.error().data("data", "该博客不存在");
+        }
+    }
 
 }

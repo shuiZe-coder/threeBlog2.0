@@ -20,7 +20,7 @@ public class BlogPrePageController {
         return "archives";
     }
 
-    @GetMapping("/bg")
+    @GetMapping("/bg/{id}")
     public String bg(){
         return "blog";
     }
