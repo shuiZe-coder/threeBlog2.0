@@ -259,34 +259,38 @@
     //删除事件
     function rec() {
         var message = confirm("确认要删除该文章吗? 三思啊! 删了可就没了!"); //返回true或false
-        var flag = false;
+
         if (message == true) {
             $.ajaxSetup({
                 contentType: 'application/json'
             });
+            //查看该类型下是否有博客, 有flag为false, 无flag为true
             $.post("/blog/1/5", JSON.stringify({"typeId": id}), function (data) {
                 if (data.data.data.length == 0) {
-                    flag = false;
+                    $.ajax({
+                        url: "/type/" + id,
+                        type: "DELETE",
+                        success: function (data) {
+                            location.href = "/admin/type/manage";
+                        }
+                    });
                 } else {
-                    flag = true;
+                    alert("该类型博客数量不为空, 请先删除博客");
+                    return;
                 }
-            }, "json")
-            // $.ajax({
-            //     url: "/blog/" + id,
-            //     type: "DELETE",
-            //     success: function (data) {
-            //         location.href = "/admin/article/manage";
-            //     }
-            // })
+            }, "json");
+
+
         } else {
             return;
         }
     }
 
-    //获取博客ID
     var id;
+    //获取博客类型ID
     $(".deletes").click(function () {
         id = $(this).parent().siblings().eq(0).html();
+
         //调用删除事件
         rec();
 
