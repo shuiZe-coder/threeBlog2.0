@@ -1,90 +1,93 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport"/>
 
-  <title>分类管理</title>
-  <link href="../../static/images/me.jpg" th:href="@{/images/me.jpg}" rel="icon" type="image/x-ico">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
-  <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+    <title>分类管理</title>
+    <link href="../../static/images/me.jpg" th:href="@{/images/me.jpg}" rel="icon" type="image/x-ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
 </head>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
 
 <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
 <!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
 
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
 <!-- </head> -->
 
 
 <script>
-  $(function () {
-    //消息提示关闭初始化
-    $('.message .close').on('click', function () {
-              $(this)
-                      .closest('.message')
-                      .transition('fade');
-    });
+    $(function () {
+        //消息提示关闭初始化
+        $('.message .close').on('click', function () {
+            $(this)
+                .closest('.message')
+                .transition('fade');
+        });
 
-    var currentPage = 1;
+        var currentPage = 1;
 
-    function showData(page) {
-      $("#curPage").html(page);
-      $.get("/type/" + page + "/5", function (data) {
-        for (i = 1; i < 6; i++) {
-          var item = data.data.data[i - 1];
-          if (item == undefined) {
-            $("#item" + i).hide();
-            continue;
-          } else {
-            $("#item" + i).show();
-          }
-          $("#id" + i).html(item.id);
-          $("#name" + i).html(item.name);
+        function showData(page) {
+            $("#curPage").html(page);
+            $.get("/type/" + page + "/5", function (data) {
+                for (i = 1; i < 6; i++) {
+                    var item = data.data.data[i - 1];
+                    if (item == undefined) {
+                        $("#item" + i).hide();
+                        continue;
+                    } else {
+                        $("#item" + i).show();
+                    }
+                    $("#id" + i).html(item.id);
+                    $("#name" + i).html(item.name);
+                }
+            })
         }
-      })
-    }
 
-    // 请求页面获取ajax数据渲染到html
-    showData(currentPage);
+        // 请求页面获取ajax数据渲染到html
+        showData(currentPage);
 
-    function getAllData() {
-      $.get("/type", function (data) {
-        var count = data.data.data.length;
-        $("#typeCount").html(count);
-        var pageCount = Math.floor(count/5);
-        if(count%5 != 0){
-          pageCount++;
+        function getAllData() {
+            $.get("/type", function (data) {
+                var count = data.data.data.length;
+                $("#typeCount").html(count);
+                var pageCount = Math.floor(count / 5);
+                if (count % 5 != 0) {
+                    pageCount++;
+                }
+                $("#pageCount").html(pageCount);
+            })
         }
-        $("#pageCount").html(pageCount);
-      })
-    }
-    getAllData();
 
-    $("#nextPage").click(function () {
-      if (currentPage >= $("#pageCount")[0].textContent){
-        return
-      }
-      currentPage++;
-      showData(currentPage);
+        getAllData();
 
-    });
+        $("#nextPage").click(function () {
+            if (currentPage >= $("#pageCount")[0].textContent) {
+                return
+            }
+            currentPage++;
+            showData(currentPage);
 
-    $("#prePage").click(function () {
-      if (currentPage <= 1) {
-        return
-      }
-      currentPage--;
-      showData(currentPage);
-    });
+        });
+
+        $("#prePage").click(function () {
+            if (currentPage <= 1) {
+                return
+            }
+            currentPage--;
+            showData(currentPage);
+        });
 
 
-  })
+    })
 
 </script>
 
@@ -93,158 +96,200 @@
 <div th:replace="~{/admin/common::topbar}"></div>
 
 
+<!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">-->
+<!--  <div class="modal-dialog" role="document">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+<!--        <h4 class="modal-title" id="exampleModalLabel">New message</h4>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        <form>-->
+<!--          <div class="form-group">-->
+<!--            <label for="recipient-name" class="control-label">修改前类型名称为:</label>-->
+<!--            <input type="text" class="form-control" id="recipient-name">-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label for="message-text" class="control-label">修改类型名称为: </label>-->
+<!--            <textarea class="form-control" id="message-text"></textarea>-->
+<!--          </div>-->
+<!--        </form>-->
+<!--      </div>-->
+<!--      <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>-->
+<!--        <button type="button" class="btn btn-primary">保存</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="exampleModalLabel">New message</h4>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="control-label">修改前类型名称为:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="control-label">修改类型名称为: </label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-primary">保存</button>
-      </div>
+
+<div class="m-padded-tb-hugex">
+    <div class="ui attached pointing menu">
+        <div class="ui container">
+            <div class="right menu">
+                <a href="/admin/type/add" class="item">新增</a>
+                <a href="javascript:void(0)" class="teal active item">列表</a>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--中间内容-->
+<div class="m-padded-tb-big">
+    <div class="ui container">
+        <div class="ui success message">
+            <i class="close icon"></i>
+            <div class="">提示：操作成功！</div>
+        </div>
+        <table class="ui compact teal table">
+            <thead>
+            <tr align="center">
+                <th>ID</th>
+                <th>名称</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr align="center" id="item1">
+                <td id="id1">1</td>
+                <td id="name1">我的故事</td>
+                <td>
+                    <a href="javascript:void(0)" class="ui mini teal basic button" data-target="#exampleModal"
+                       data-toggle="modal" data-whatever="修改前类型">编辑</a>
+                    <a href="#" class="ui mini red basic button deletes">删除</a>
+                </td>
+            </tr>
+            <tr align="center" id="item2">
+                <td id="id2">1</td>
+                <td id="name2">我的故事</td>
+                <td>
+                    <a href="javascript:void(0)" class="ui mini teal basic button" data-target="#exampleModal"
+                       data-toggle="modal" data-whatever="修改前类型">编辑</a>
+                    <a href="#" class="ui mini red basic button deletes">删除</a>
+                </td>
+            </tr>
+            <tr align="center" id="item3">
+                <td id="id3">1</td>
+                <td id="name3">我的故事</td>
+                <td>
+                    <a href="javascript:void(0)" class="ui mini teal basic button" data-target="#exampleModal"
+                       data-toggle="modal" data-whatever="修改前类型">编辑</a>
+                    <a href="#" class="ui mini red basic button deletes">删除</a>
+                </td>
+            </tr>
+            <tr align="center" id="item4">
+                <td id="id4">1</td>
+                <td id="name4">我的故事</td>
+                <td>
+                    <a href="javascript:void(0)" class="ui mini teal basic button" data-target="#exampleModal"
+                       data-toggle="modal" data-whatever="修改前类型">编辑</a>
+                    <a href="#" class="ui mini red basic button deletes">删除</a>
+                </td>
+            </tr>
+            <tr align="center" id="item5">
+                <td id="id5">1</td>
+                <td id="name5">我的故事</td>
+                <td>
+                    <a href="javascript:void(0)" class="ui mini teal basic button" data-target="#exampleModal"
+                       data-toggle="modal" data-whatever="修改前类型">编辑</a>
+                    <a href="#" class="ui mini red basic button deletes">删除</a>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th colspan="6">
+                    <div class="ui inverted divided stackable grid">
+                        <div class="three wide column" align="center">
+                            <a class="item" id="prePage" href="javascript:void(0)">上一页</a>
+                        </div>
+
+                        <div class="ten wide column" align="center">
+                            <p>第 <span id="curPage"></span> 页，共 <span id="pageCount"></span> 页，有 <span
+                                    id="typeCount"></span> 个分类</p>
+                        </div>
+
+                        <div class="three wide column" align="center">
+                            <a class="item" href="javascript:void(0)" id="nextPage">下一页</a>
+                        </div>
+                    </div>
+                    <div align="center">
+                        <a href="/admin/type/add">
+                            <button type="button" class="ui teal button m-mobile-wide m-margin-top"><i
+                                    class="pencil icon"></i>新增
+                            </button>
+                        </a>
+                    </div>
+                </th>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
 </div>
 
 
-  <div class="m-padded-tb-hugex">
-  <div class="ui attached pointing menu">
-    <div class="ui container">
-      <div class="right menu">
-        <a href="/admin/type/add" class="item">新增</a>
-        <a href="javascript:void(0)" class="teal active item">列表</a>
-      </div>
-    </div>
-  </div>
-  </div>
-<br>
-<br>
-<br>
-<br>
-<br>
-  <!--中间内容-->
-  <div  class="m-padded-tb-big">
-    <div class="ui container">
-      <div class="ui success message">
-        <i class="close icon"></i>
-        <div class="">提示：操作成功！</div>
-      </div>
-      <table class="ui compact teal table">
-        <thead>
-          <tr align="center">
-            <th>ID</th>
-            <th>名称</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr align="center" id="item1">
-            <td id="id1">1</td>
-            <td id="name1">我的故事</td>
-            <td>
-              <a href="javascript:void(0)" class="ui mini teal basic button" data-target="#exampleModal" data-toggle="modal" data-whatever="修改前类型">编辑</a>
-              <a href="#"  onclick="return confirm('确定要删除该分类吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
-            </td>
-          </tr>
-          <tr align="center" id="item2">
-            <td id="id2">1</td>
-            <td id="name2">我的故事</td>
-            <td>
-              <a href="javascript:void(0)" class="ui mini teal basic button" data-target="#exampleModal" data-toggle="modal" data-whatever="修改前类型">编辑</a>
-              <a href="#"  onclick="return confirm('确定要删除该分类吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
-            </td>
-          </tr>
-          <tr align="center" id="item3">
-            <td id="id3">1</td>
-            <td id="name3">我的故事</td>
-            <td>
-              <a href="javascript:void(0)" class="ui mini teal basic button" data-target="#exampleModal" data-toggle="modal" data-whatever="修改前类型">编辑</a>
-              <a href="#"  onclick="return confirm('确定要删除该分类吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
-            </td>
-          </tr>
-          <tr align="center" id="item4">
-            <td id="id4">1</td>
-            <td id="name4">我的故事</td>
-            <td>
-              <a href="javascript:void(0)" class="ui mini teal basic button" data-target="#exampleModal" data-toggle="modal" data-whatever="修改前类型">编辑</a>
-              <a href="#"  onclick="return confirm('确定要删除该分类吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
-            </td>
-          </tr>
-          <tr align="center" id="item5">
-            <td id="id5">1</td>
-            <td id="name5">我的故事</td>
-            <td>
-              <a href="javascript:void(0)" class="ui mini teal basic button" data-target="#exampleModal" data-toggle="modal" data-whatever="修改前类型">编辑</a>
-              <a href="#"  onclick="return confirm('确定要删除该分类吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <th colspan="6">
-              <div class="ui inverted divided stackable grid">
-                <div class="three wide column" align="center">
-                  <a class="item" id="prePage" href="javascript:void(0)">上一页</a>
-                </div>
-
-                <div class="ten wide column" align="center">
-                  <p>第 <span id="curPage"></span> 页，共 <span id="pageCount"></span> 页，有 <span id="typeCount"></span> 个分类</p>
-                </div>
-
-                <div class="three wide column" align="center">
-                  <a class="item" href="javascript:void(0)" id="nextPage">下一页</a>
-                </div>
-              </div>
-              <div align="center">
-              <a href="/admin/type/add">
-                <button type="button" class="ui teal button m-mobile-wide m-margin-top"><i class="pencil icon"></i>新增</button>
-              </a>
-              </div>
-            </th>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-  </div>
-
-
-
-  <br>
-  <br>
 <br>
 <br>
 <br>
 <br>
 <br>
 <br>
-  <!--底部栏-->
+<br>
+<br>
+<!--底部栏-->
 <div th:replace="~{/admin/common::footbar}"></div>
 <div th:replace="~{/admin/common::commonJs}"></div>
 
 
 </body>
 <script>
-  $('#exampleModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    var recipient = button.data('whatever') // Extract info from data-* attributes
-    var modal = $(this)
-    modal.find('.modal-title').text('修改博客类型名称 ')
-    modal.find('.modal-body input').val(recipient)
-  })
+    $('#exampleModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('whatever') // Extract info from data-* attributes
+        var modal = $(this)
+        modal.find('.modal-title').text('修改博客类型名称 ')
+        modal.find('.modal-body input').val(recipient)
+    });
+
+    //删除事件
+    function rec() {
+        var message = confirm("确认要删除该文章吗? 三思啊! 删了可就没了!"); //返回true或false
+        var flag = false;
+        if (message == true) {
+            $.ajaxSetup({
+                contentType: 'application/json'
+            });
+            $.post("/blog/1/5", JSON.stringify({"typeId": id}), function (data) {
+                if (data.data.data.length == 0) {
+                    flag = false;
+                } else {
+                    flag = true;
+                }
+            }, "json")
+            // $.ajax({
+            //     url: "/blog/" + id,
+            //     type: "DELETE",
+            //     success: function (data) {
+            //         location.href = "/admin/article/manage";
+            //     }
+            // })
+        } else {
+            return;
+        }
+    }
+
+    //获取博客ID
+    var id;
+    $(".deletes").click(function () {
+        id = $(this).parent().siblings().eq(0).html();
+        //调用删除事件
+        rec();
+
+    });
 </script>
 </html>
