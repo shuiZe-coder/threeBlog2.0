@@ -232,7 +232,7 @@
                     <td>
                         <!--th:href="@{/admin/types/{id}/input(id=${type.id})}"-->
                         <a href="#" class="ui mini teal basic button edit">编辑</a>
-                        <a href="#" id="delete" onclick="rec()" class="ui mini red basic button">删除</a>
+                        <a href="#" id="delete" class="ui mini red basic button deletes">删除</a>
                     </td>
                 </tr>
 
@@ -246,7 +246,7 @@
                     <td>
                         <!--th:href="@{/admin/types/{id}/input(id=${type.id})}"-->
                         <a href="#" class="ui mini teal basic button edit">编辑</a>
-                        <a href="#" onclick="return confirm('确定要删除该文章吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
+                        <a href="#" class="ui mini red basic button deletes">删除</a>
                     </td>
                 </tr>
                 <tr align="center" id="item3">
@@ -259,7 +259,7 @@
                     <td>
                         <!--th:href="@{/admin/types/{id}/input(id=${type.id})}"-->
                         <a href="#" class="ui mini teal basic button edit">编辑</a>
-                        <a href="#" onclick="return confirm('确定要删除该文章吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
+                        <a href="#" class="ui mini red basic button deletes">删除</a>
                     </td>
                 </tr>
                 <tr align="center" id="item4">
@@ -272,7 +272,7 @@
                     <td>
                         <!--th:href="@{/admin/types/{id}/input(id=${type.id})}"-->
                         <a href="#" class="ui mini teal basic button edit">编辑</a>
-                        <a href="#" onclick="return confirm('确定要删除该文章吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
+                        <a href="#" class="ui mini red basic button deletes">删除</a>
                     </td>
                 </tr>
                 <tr align="center" id="item5">
@@ -285,7 +285,7 @@
                     <td>
                         <!--th:href="@{/admin/types/{id}/input(id=${type.id})}"-->
                         <a href="#" class="ui mini teal basic button edit">编辑</a>
-                        <a href="#" onclick="return confirm('确定要删除该文章吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
+                        <a href="#" class="ui mini red basic button deletes">删除</a>
                     </td>
                 </tr>
                 </tbody>
@@ -432,24 +432,32 @@
     //     });
     // }
 
-    //删除博客
+    //删除事件
     function rec() {
-
         var message = confirm("确认要删除该文章吗? 三思啊! 删了可就没了!"); //返回true或false
-        var id = $("#delete").parent().siblings().eq(0).html();
-        //console.log(id);
-        if(message==true){
+
+        if (message == true) {
             $.ajax({
-                url: "/blog/"+id,
-                type:"DELETE",
-                success:function (data) {
+                url: "/blog/" + id,
+                type: "DELETE",
+                success: function (data) {
                     location.href = "/admin/article/manage";
                 }
             })
-        }else{
+        } else {
             return;
         }
     }
+
+    var id;
+    //获取博客类型ID
+    $(".deletes").click(function () {
+        id = $(this).parent().siblings().eq(0).html();
+
+        //调用删除事件
+        rec();
+
+    });
 
 </script>
 </body>
