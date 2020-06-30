@@ -1,5 +1,6 @@
 package org.shuize.blogadminconsumer.blog.controller;
 
+import io.swagger.models.auth.In;
 import org.shuize.blogadminconsumer.blog.service.BlogService;
 import org.shuize.blogmanage.blog.pojo.TBlog;
 import org.shuize.blogmanage.blog.pojo.vo.BlogInfoVo;
@@ -7,6 +8,8 @@ import org.shuize.commonapi.RespUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class BlogRemoteController {
@@ -50,4 +53,11 @@ public class BlogRemoteController {
         return blogService.updateBlog(blog);
     };
 
+    @GetMapping("/blog/latestRecommended/{current}/{limit}")
+    public RespUtil lastestRecommended(
+            @PathVariable("current") Long current,
+            @PathVariable("limit") Long limit,
+            @RequestParam(value = "isRecommend", required = false) Integer isRecommend){
+        return blogService.getLastestRecommended(current, limit, isRecommend);
+    }
 }

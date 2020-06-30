@@ -28,4 +28,7 @@ public interface BlogTypeService {
 
     @PutMapping("/type")
     public RespUtil updateBlogType(@RequestBody TType type);
+
+    @DeleteMapping("/type/{id}")
+    RespUtil deleteBlogTypeById(@PathVariable("id") Long id);
 }

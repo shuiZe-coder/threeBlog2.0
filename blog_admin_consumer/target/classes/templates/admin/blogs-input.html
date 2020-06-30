@@ -35,7 +35,7 @@
             <div class="required field">
                 <div class="ui left labeled input">
                     <div class="ui selection compact teal basic dropdown label">
-                        <input type="hidden" value="原创" name="flag">
+                        <input type="hidden" value="原创" name="flag" id="flag">
                         <i class="dropdown icon"></i>
                         <div class="text">原创</div>
                         <div class="menu">
@@ -226,12 +226,15 @@
         }
     }
 
+
     function postData(published) {
         var title = $("#title").val();
         var content = $("#content").val();
         var typeId = $("#type").nameId;
         var firstPicture = $("#firstPictures").val();
         var description = $("#descriptions").val();
+        var flag = $("#flag").val();
+        //console.log("flag:"+flag);
 
         //设置表单
         var form_data = {
@@ -240,6 +243,7 @@
             "typeId": blogType,
             "firstPicture": firstPicture,
             "description": description,
+            "flag":flag,
             "published": published,
 
         };

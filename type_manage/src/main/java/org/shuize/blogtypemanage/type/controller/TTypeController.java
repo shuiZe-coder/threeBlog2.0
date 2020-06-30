@@ -68,5 +68,16 @@ public class TTypeController {
             return RespUtil.error().data("data", "博客类型修改失败");
         }
     }
+
+
+    @DeleteMapping("/{id}")
+    public RespUtil deleteBlogTypeById(@PathVariable("id") Long id){
+        boolean isDelete = typeService.removeById(id);
+        if (isDelete) {
+            return RespUtil.ok().data("data", "博客类型删除成功");
+        }else {
+            return RespUtil.error().data("data", "博客类型删除失败");
+        }
+    }
 }
 

@@ -4,7 +4,9 @@ package org.shuize.blogmanage.blog.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.models.auth.In;
 import org.shuize.blogmanage.blog.pojo.TBlog;
+import org.shuize.blogmanage.blog.pojo.vo.BlogAndType;
 import org.shuize.blogmanage.blog.pojo.vo.BlogDescription;
 import org.shuize.blogmanage.blog.pojo.vo.BlogInfoVo;
 import org.shuize.blogmanage.blog.service.TBlogService;
@@ -103,5 +105,12 @@ public class TBlogController {
     public RespUtil content(TBlog blog){
         return RespUtil.ok().data("data", blog);
     }
-}
 
+    @GetMapping("/latestRecommended/{current}/{limit}")
+    public RespUtil lastestRecommended(@PathVariable("current") Long current, @PathVariable("limit") Long limit, @RequestParam(value = "isRecommend", required = false) Integer isRecommend){
+        List<BlogAndType> blogs = blogService.getLastestRecommended(current, limit, isRecommend);
+        return RespUtil.ok().data("data", blogs);
+    }
+
+
+}

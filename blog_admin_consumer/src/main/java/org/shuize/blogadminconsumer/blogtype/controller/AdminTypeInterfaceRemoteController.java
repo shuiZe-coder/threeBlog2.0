@@ -43,4 +43,9 @@ public class AdminTypeInterfaceRemoteController {
     public RespUtil updateBlogType(@RequestBody TType type){
         return blogTypeService.updateBlogType(type);
     };
+
+    @DeleteMapping("/type/{id}")
+    public RespUtil deleteBlogTypeById(@PathVariable("id") Long id){
+        return blogTypeService.deleteBlogTypeById(id);
+    }
 }
