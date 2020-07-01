@@ -28,7 +28,7 @@
   <!--中间内容-->
   <div  class="m-container-small m-padded-tb-massive">
     <div class="ui container">
-      <form action="#" method="post" class="ui form">
+      <form action="#" method="post" class="ui form" enctype="multipart/form-data">
         <input type="hidden" name="id">
         <div class=" field">
           <div class="ui left labeled input m-margin-top">
@@ -42,6 +42,7 @@
           <div class="ui left labeled input m-margin-top">
             <label class="ui teal basic label">图片地址</label>
             <input type="text" name="pictureaddress" placeholder="图片地址">
+            <input type="file" name="picture" value="选择图片"/>
           </div>
           <div class="ui left labeled input m-margin-top">
             <label class="ui teal basic label">图片描述</label>
