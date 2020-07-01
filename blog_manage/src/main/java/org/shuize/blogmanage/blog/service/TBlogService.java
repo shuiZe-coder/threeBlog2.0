@@ -4,10 +4,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import javassist.NotFoundException;
 import org.shuize.blogmanage.blog.pojo.TBlog;
-import org.shuize.blogmanage.blog.pojo.vo.BlogAndType;
-import org.shuize.blogmanage.blog.pojo.vo.BlogDescription;
-import org.shuize.blogmanage.blog.pojo.vo.BlogDetail;
-import org.shuize.blogmanage.blog.pojo.vo.BlogInfoVo;
+import org.shuize.blogmanage.blog.pojo.vo.*;
+import org.shuize.commonapi.RespUtil;
+import org.springframework.web.bind.annotation.GetMapping;
 
 
 import java.util.List;
@@ -30,4 +29,7 @@ public interface TBlogService extends IService<TBlog> {
     List<BlogAndType> getLastestRecommended(Long current, Long limit, Integer isRecommend);
 
     BlogDetail getBlogDetailById(Long id) throws NotFoundException;
+
+
+    List<TypeAndBlogCount> getBlogCountByType();
 }

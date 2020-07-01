@@ -7,7 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BlogInfoVo {
-    private String title;
-    private Long typeId;
+public class TypeAndBlogCount {
+    private Long id;
+    private String name;
+
+    private Long blogCount;
+
 }

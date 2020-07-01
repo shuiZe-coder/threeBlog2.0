@@ -17,6 +17,11 @@ public class BlogRemoteController {
     @Autowired
     private BlogService blogService;
 
+    @GetMapping("/blog/count")
+    public RespUtil getBlogCountByType(){
+        return blogService.getBlogCountByType();
+    };
+
     @GetMapping("/blog/all")
     public RespUtil all(){
         return blogService.all();

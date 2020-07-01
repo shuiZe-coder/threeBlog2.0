@@ -31,4 +31,6 @@ public interface BlogTypeService {
 
     @DeleteMapping("/type/{id}")
     RespUtil deleteBlogTypeById(@PathVariable("id") Long id);
+
+
 }

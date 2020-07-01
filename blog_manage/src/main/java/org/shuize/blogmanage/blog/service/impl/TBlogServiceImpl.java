@@ -7,10 +7,7 @@ import io.swagger.models.auth.In;
 import javassist.NotFoundException;
 import org.shuize.blogmanage.blog.mapper.TBlogMapper;
 import org.shuize.blogmanage.blog.pojo.TBlog;
-import org.shuize.blogmanage.blog.pojo.vo.BlogAndType;
-import org.shuize.blogmanage.blog.pojo.vo.BlogDescription;
-import org.shuize.blogmanage.blog.pojo.vo.BlogDetail;
-import org.shuize.blogmanage.blog.pojo.vo.BlogInfoVo;
+import org.shuize.blogmanage.blog.pojo.vo.*;
 import org.shuize.blogmanage.blog.service.TBlogService;
 import org.shuize.blogmanage.blog.service.TypeRemoteCallerService;
 import org.shuize.blogmanage.util.MarkdownUtils;
@@ -62,6 +59,7 @@ public class TBlogServiceImpl extends ServiceImpl<TBlogMapper, TBlog> implements
         if (blogs == null) {
             blogs = this.list(null);
         }
+
         List<BlogDescription> res = new ArrayList<BlogDescription>();
         List<TType> types = typeRemoteCallerService.getAllType();
         for (TBlog blog: blogs){
@@ -95,6 +93,17 @@ public class TBlogServiceImpl extends ServiceImpl<TBlogMapper, TBlog> implements
             String typeName = (String)typeRemoteCallerService.getTypeById(blog.getTypeId()).getData().get("name");
             blogAndType.setTypeName(typeName);
             result.add(blogAndType);
+        }
+        return result;
+    }
+
+    @Override
+    public List<TypeAndBlogCount> getBlogCountByType() {
+        List<TType> allType = typeRemoteCallerService.getAllType();
+        List<TypeAndBlogCount> result = new ArrayList<>();
+        for (TType type : allType){
+            long size = this.selectByInfo(new BlogInfoVo(null, type.getId()), 1, Integer.MAX_VALUE).getRecords().size();
+            result.add(new TypeAndBlogCount(type.getId(), type.getName(), size));
         }
         return result;
     }
