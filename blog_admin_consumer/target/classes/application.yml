@@ -6,7 +6,7 @@ spring:
     name: blog-manage-service-consumer
   datasource:
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-    url: jdbc:p6spy:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    url: jdbc:p6spy:mysql://10.88.1.168:3306/blog?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
     username: liyun
     password: liyun
   main:
@@ -17,7 +17,11 @@ spring:
 
   thymeleaf:
     cache: false
-
+  servlet:
+    multipart:
+      max-file-size: 100MB # 单个文件大小
+      max-request-size: 100MB # 设置总上传的数据大小
+      enabled: true #开启
 
 eureka:
   client:

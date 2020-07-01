@@ -15,5 +15,4 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 @Mapper
 public interface TPictureMapper extends BaseMapper<TPicture> {
-
 }

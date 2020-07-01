@@ -10,11 +10,10 @@ import java.util.Date;
 public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
-        this.setFieldValByName("picturename", new Date().toString(), metaObject);
+        this.setFieldValByName("picturetime", new Date(), metaObject);
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-
     }
 }
