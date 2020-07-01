@@ -65,7 +65,7 @@
                     if (items != undefined) {
                         $("#mainBlog" + i).find("h3").html(items[i - 1].title);
                         $("#mainBlog" + i).find("p").html(items[i - 1].description);
-                        $("#mainBlog" + i).find(".rounded").attr("src", items[i - 1].firstPicture);
+                        $("#mainBlog" + i).find(".rounded").attr("src", 'https://three-blog.oss-cn-beijing.aliyuncs.com'+items[i - 1].firstPicture);
                         $("#mainBlog" + i).find("a.header").html("李韵");
                         $("#mainBlog" + i).find(".m-text-thin").html(items[i - 1].typeName);
                         $("#mainBlog" + i).find(".update_time").html(items[i - 1].updateTime);
