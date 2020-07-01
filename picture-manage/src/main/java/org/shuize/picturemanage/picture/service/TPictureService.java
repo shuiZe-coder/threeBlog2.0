@@ -2,6 +2,10 @@ package org.shuize.picturemanage.picture.service;
 
 import org.shuize.picturemanage.picture.pojo.TPicture;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface TPictureService extends IService<TPicture> {
 
+    List<String> uploadFile(MultipartFile[] files);
 }

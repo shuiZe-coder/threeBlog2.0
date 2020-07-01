@@ -1,8 +1,12 @@
 package org.shuize.picturemanage.picture.pojo;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.Date;
+
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,7 +26,7 @@ public class TPicture implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     private String pictureaddress;
@@ -31,7 +35,8 @@ public class TPicture implements Serializable {
 
     private String picturename;
 
-    private String picturetime;
+    @TableField(fill = FieldFill.INSERT)
+    private Date picturetime;
 
 
 }
