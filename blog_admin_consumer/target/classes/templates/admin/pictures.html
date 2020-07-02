@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-<<<<<<< HEAD
+    <<<<<<< HEAD
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>相册管理</title>
@@ -11,31 +11,32 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
     <script>
         $(function () {
-            $.get("", function (data) {
+            $.get("/picture/1/1000", function (data) {
                 var dataArr = data.data.data;
+                console(dataArr.length);
                 for (var i = 0; i < dataArr.length; i++) {
-                    $("#addTr").append('<tr align="center">\n' +
-                            '                <td>1</td>\n' +
-                            '                <td>东西冲徒步</td>\n' +
-                            '                <td>2019年12月31日 深圳</td>\n' +
-                            '                <td>\n' +
-                            '                    <a href="#" class="ui mini teal basic button">编辑</a>\n' +
-                            '                    <a href="#" onclick="return confirm(\'确定要删除该照片吗？三思啊! 删了可就没了！\')" class="ui mini red basic button">删除</a>\n' +
-                            '                </td>\n' +
-                            '            </tr>')
+                    $("#addTr").append($('<tr align="center">\n' +
+                        '                <td>' + dataArr[i].id + '</td>\n' +
+                        '                <td>' + dataArr[i].picturename + '</td>\n' +
+                        '                <td>' + dataArr[i].picturetime + '</td>\n' +
+                        '                <td>\n' +
+                        '                    <a href="#" class="ui mini teal basic button">编辑</a>\n' +
+                        '                    <a href="#" onclick="return confirm(\'确定要删除该照片吗？三思啊! 删了可就没了！\')" class="ui mini red basic button">删除</a>\n' +
+                        '                </td>\n' +
+                        '            </tr>'))
                 }
 
             })
         })
     </script>
-=======
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>相册管理</title>
-  <link th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/images/me.jpg}" rel="icon" type="image/x-ico">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
-  <link rel="stylesheet" th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/css/me.css}">
->>>>>>> 329674c31de5f2358fec8b42000869ee310f1306
+    =======
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>相册管理</title>
+    <link th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/images/me.jpg}" rel="icon" type="image/x-ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/css/me.css}">
+    >>>>>>> 329674c31de5f2358fec8b42000869ee310f1306
 </head>
 
 <body>
@@ -72,6 +73,7 @@
             </tr>
             </thead>
             <tbody id="addTr">
+
             </tbody>
             <tfoot>
             <tr>

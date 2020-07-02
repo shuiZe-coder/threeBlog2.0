@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Scope;
 public class FeignConfig {
 
 
-    @Bean
+   /* @Bean
     @Primary
     @Scope("prototype")
     public Encoder multipartFormEncoder() {
@@ -26,5 +26,5 @@ public class FeignConfig {
     public feign.Logger.Level multipartLoggerLevel() {
         return feign.Logger.Level.FULL;
     }
-
+*/
 }
