@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <<<<<<< HEAD
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>相册管理</title>
@@ -9,34 +8,73 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+    <style>
+        #div1 {
+            width: 777px;
+            height: 321px;
+            border: #00c4ff solid 1px;
+            position: absolute;
+            left: 235px;
+            top: 200px;
+
+
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
     <script>
         $(function () {
+            $("#div1").addClass("hide");
             $.get("/picture/1/1000", function (data) {
-                var dataArr = data.data.data;
-                console(dataArr.length);
+                dataArr = data.data.data;
+                // console.log(dataArr.length);
                 for (var i = 0; i < dataArr.length; i++) {
-                    $("#addTr").append($('<tr align="center">\n' +
+                    $("#addTr").append('<tr align="center">\n' +
                         '                <td>' + dataArr[i].id + '</td>\n' +
                         '                <td>' + dataArr[i].picturename + '</td>\n' +
                         '                <td>' + dataArr[i].picturetime + '</td>\n' +
                         '                <td>\n' +
-                        '                    <a href="#" class="ui mini teal basic button">编辑</a>\n' +
-                        '                    <a href="#" onclick="return confirm(\'确定要删除该照片吗？三思啊! 删了可就没了！\')" class="ui mini red basic button">删除</a>\n' +
+                        '                    <a add=' + dataArr[i].pictureaddress + '\ href="#"  class="ui mini teal basic button look" >查看</a>\n' +
+                        '                    <a href="#"  class="ui mini red basic button deletes">删除</a>\n' +
                         '                </td>\n' +
-                        '            </tr>'))
-                }
+                        '            </tr>');
 
-            })
+
+                }
+                //查看照片
+                $(".look").click(function () {
+                    var addr = $(this).attr("add");
+                    console.log(addr);
+                    $("#img").prop({
+                        src: "" + addr
+                    }).parent().toggleClass("hide")
+                });
+                //删除照片
+                $(".deletes").click(function () {
+                    //var id;
+                    var id = $(this).parent().siblings().eq(0).html();
+                    console.log("id" + id);
+                    var message = confirm("真的要删除吗?请三思! 删除可就没了啊!");
+                    if (message) {
+                        $.ajax({
+                            url: "/picture/" + id,
+                            type: "DELETE",
+                            success: function (data) {
+                                location.href = "/admin/picture/manage";
+                            }
+                        })
+                    } else {
+                        return;
+                    }
+                })
+
+
+            });
+
         })
     </script>
-    =======
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>相册管理</title>
-    <link th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/images/me.jpg}" rel="icon" type="image/x-ico">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
-    <link rel="stylesheet" th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/css/me.css}">
-    >>>>>>> 329674c31de5f2358fec8b42000869ee310f1306
 </head>
 
 <body>
@@ -63,7 +101,10 @@
             <i class="close icon"></i>
             <div class="">提示：恭喜，操作成功！</div>
         </div>-->
-        <table class="ui compact teal table">
+        <div id="div1" style="z-index: 2">
+            <img id="img" src="" alt="" style="width: 100%; height: 100%; ">
+        </div>
+        <table class="ui compact teal table" style="z-index: 1">
             <thead>
             <tr align="center">
                 <th>ID</th>
@@ -72,25 +113,26 @@
                 <th>操作</th>
             </tr>
             </thead>
+
             <tbody id="addTr">
 
             </tbody>
             <tfoot>
             <tr>
                 <th colspan="6">
-                    <div class="ui inverted divided stackable grid">
+                    <!--<div class="ui inverted divided stackable grid">
                         <div class="three wide column" align="center">
                             <a class="item">上一页</a>
                         </div>
 
                         <div class="ten wide column" align="center">
-                            <p>第 <span></span> 页，共 <span></span> 页，有 <span></span> 个分类</p>
+                            <p>第 <span></span> 页，共 <span></span> 页</p>
                         </div>
 
                         <div class="three wide column" align="center">
                             <a class="item">下一页</a>
                         </div>
-                    </div>
+                    </div>-->
 
                     <div align="center">
                         <a href="/admin/picture/add">
