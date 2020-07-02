@@ -32,6 +32,9 @@ spring:
       max-request-size: 100MB # 设置总上传的数据大小
       enabled: true #开启
 
+  thymeleaf:
+    cache: false
+
 logging:
   file:
     path: log

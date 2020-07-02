@@ -18,8 +18,4 @@ public class PicturePageController {
         return "admin/pictures-input";
     }
 
-    @GetMapping("/test")
-    public String test(){
-        return "admin/test";
-    }
 }
