@@ -21,25 +21,16 @@ import java.util.List;
  * @author shuize
  * @since 2020-06-28
  */
-@RestController
-
+@Controller
 public class TPictureController {
 
     @Autowired
     private TPictureService pictureService;
 
-    @PostMapping("/picture/upload")
-//    @ResponseBody
-    public RespUtil upload(@RequestPart(value = "images", required = false) MultipartFile[] files){
-        if (files == null ||files.length==0){
-            return RespUtil.error().data("data", "上传的文件为空或不存在");
-        }else {
-            List<String> path = pictureService.uploadFile(files);
-            return RespUtil.ok().data("data", path);
-        }
-    }
+
 
     @GetMapping("/picture/{current}/{limit}")
+    @ResponseBody
     public RespUtil getPictureInfoByPage(@PathVariable("current") Long current, @PathVariable("limit") Long limit){
         Page<TPicture> tPicturePage = new Page<>(current, limit);
         pictureService.page(tPicturePage);
@@ -47,6 +38,7 @@ public class TPictureController {
     }
 
     @DeleteMapping("/picture/{id}")
+    @ResponseBody
     public RespUtil deletePictureById(@PathVariable("id") Long id){
         boolean b = pictureService.removeById(id);
         if (b) {
@@ -56,8 +48,10 @@ public class TPictureController {
         }
     }
 
-
-
-
+    @PostMapping("/admin/picture/upload")
+    public String upload(@RequestPart(value = "images", required = false) MultipartFile[] files){
+            List<String> path = pictureService.uploadFile(files);
+            return "redirect:/admin/picture/manage";
+        }
 }
 
