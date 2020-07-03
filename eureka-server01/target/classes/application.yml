@@ -3,21 +3,20 @@ server:
 
 spring:
   application:
-    name: eureka-server # 应用名称(集群下相同)
+    name: eureka-server
   mvc:
     servlet:
       load-on-startup: 1
 
 eureka:
-#  instance:
-#    hostname: localhost
-#    prefer-ip-address: true # 是否使用 ip 地址注册
-#    # 服务显示格式, 默认 主机名：应用名：应用端口。
-#    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+  instance:
+    hostname: eureka01
   client:
-    fetch-registry: false # 是否拉取注册列表
-    register-with-eureka: false # 是否将自身注册到注册中心
+    fetch-registry: false
+    register-with-eureka: false
     service-url:
-      defaultZone: http://localhost:7001/eureka/
+      defaultZone: http://localhost:7002/eureka/
+  server:
+    enable-self-preservation: false
 
 

@@ -1,0 +1,20 @@
+server:
+  port: 7002
+
+spring:
+  application:
+    name: eureka-server
+  mvc:
+    servlet:
+      load-on-startup: 1
+
+eureka:
+  instance:
+    hostname: eureka02
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+  server:
+    enable-self-preservation: false

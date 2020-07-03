@@ -35,8 +35,8 @@
                 $("#te" + items[0].id).children("a").addClass("teal");
                 $("#te" + items[0].id).children("div").addClass("teal")
             } else {
-                $("#te" + typeId[1].id).children("a").addClass("teal");
-                $("#te" + typeId[1].id).children("div").addClass("teal");
+                $("#te" + typeId[1]).children("a").addClass("teal");
+                $("#te" + typeId[1]).children("div").addClass("teal");
 
             }
             setBlogDetail();
@@ -222,7 +222,16 @@
     $('.menu.toggle').click(function () {
         $('.m-item').toggleClass('m-mobile-hide');
     });
-
+    $('.submits').click(function () {
+        title = $("#searched").val();
+        if (title == '') {
+            alert("你输入的内容为空");
+            return
+        } else {
+            title = $("#searched").val();
+            location.href = "/search?title=" + title;
+        }
+    })
 </script>
 </body>
 </html>

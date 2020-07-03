@@ -1,0 +1,44 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://10.88.1.168:3306/blog?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    username: liyun
+    password: liyun
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    servlet:
+      load-on-startup: 1
+
+  thymeleaf:
+    cache: true
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      enabled: true
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
+ribbon:
+  ConnectTimeout: 5000
+  ReadTimeout: 5000
+
+feign:
+  httpclient:
+    enabled: true
+
+logging:
+  file:
+    path: log
+  level:
+    root: error

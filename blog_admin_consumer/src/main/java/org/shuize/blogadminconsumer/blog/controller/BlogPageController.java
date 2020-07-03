@@ -27,4 +27,5 @@ public class BlogPageController {
     public String update(){
         return "/admin/blogs-update";
     }
+
 }
