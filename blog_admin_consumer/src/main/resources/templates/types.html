@@ -222,7 +222,16 @@
     $('.menu.toggle').click(function () {
         $('.m-item').toggleClass('m-mobile-hide');
     });
-
+    $('.submits').click(function () {
+        title = $("#searched").val();
+        if (title == '') {
+            alert("你输入的内容为空");
+            return
+        } else {
+            title = $("#searched").val();
+            location.href = "/search?title=" + title;
+        }
+    })
 </script>
 </body>
 </html>

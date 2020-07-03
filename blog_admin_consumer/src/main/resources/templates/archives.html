@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ONESTAR-时间轴</title>
-    <link href="../static/images/me.jpg" th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/images/me.jpg}" rel="icon" type="image/x-ico">
+    <link href="../static/images/me.jpg" th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/images/me.jpg}"
+          rel="icon" type="image/x-ico">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
-    <link rel="stylesheet" href="../static/css/me.css" th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/css/me.css}">
-    <link rel="stylesheet" href="../static/css/timeline.css" th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/css/timeline.css}">
+    <link rel="stylesheet" href="../static/css/me.css"
+          th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/css/me.css}">
+    <link rel="stylesheet" href="../static/css/timeline.css"
+          th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/css/timeline.css}">
 
 </head>
 <body>
@@ -33,7 +36,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
-<script src="../static/lib/timeline/timeline.js" th:src="@{https://three-blog.oss-cn-beijing.aliyuncs.com/lib/timeline/timeline.js}"></script>
+<script src="../static/lib/timeline/timeline.js"
+        th:src="@{https://three-blog.oss-cn-beijing.aliyuncs.com/lib/timeline/timeline.js}"></script>
 
 
 <script>
@@ -96,10 +100,10 @@
                 $("#add_li").append(
                     $('<li class="in-view">\n' +
                         '              <div>\n' +
-                        '                <time>'+dataArr[i].updateTime.substring(0, 10)+'</time>\n' +
+                        '                <time>' + dataArr[i].updateTime.substring(0, 10) + '</time>\n' +
                         '                <div class="scientist">\n' +
-                        '                    <a href=/bg/'+dataArr[i].id+'\'  "target"="_blank">\n' +
-                        '                      <h3 class="state" style="text-align:center;font-size: 16px;color: #000;">'+dataArr[i].title+'</h3>\n' +
+                        '                    <a href=/bg/' + dataArr[i].id + '\'  "target"="_blank">\n' +
+                        '                      <h3 class="state" style="text-align:center;font-size: 16px;color: #000;">' + dataArr[i].title + '</h3>\n' +
                         '                    </a>\n' +
                         '                </div>\n' +
                         '              </div>\n' +
@@ -109,11 +113,20 @@
             }
         });
     }
+
     getData();
 
 
-
-
+    $('.submits').click(function () {
+        title = $("#searched").val();
+        if (title == '') {
+            alert("你输入的内容为空");
+            return
+        } else {
+            title = $("#searched").val();
+            location.href = "/search?title=" + title;
+        }
+    })
 </script>
 </body>
 </html>

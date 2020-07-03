@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head >
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ONESTAR-首页</title>
 
-    <link href="../static/images/head.jpg" th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/images/head.jpg}" rel="icon" type="image/x-ico">
+    <link href="../static/images/head.jpg" th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/images/head.jpg}"
+          rel="icon" type="image/x-ico">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
-    <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css" th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/lib/editormd/css/editormd.min.css}">
-    <link rel="stylesheet" href="../static/css/me.css" th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/css/me.css}">
+    <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css"
+          th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/lib/editormd/css/editormd.min.css}">
+    <link rel="stylesheet" href="../static/css/me.css"
+          th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/css/me.css}">
     <style>
     </style>
 </head>
@@ -16,102 +19,104 @@
 <script>
     /*$(function () {*/
 
-        function setMainBlogData() {
-            $.get("/blog/latestRecommended/1/10?isRecommend=0", function (data) {
-                items = data.data.data;
+    function setMainBlogData() {
+        $.get("/blog/latestRecommended/1/10?isRecommend=0", function (data) {
+            items = data.data.data;
 
-                for (var i=1; i <= items.length; i++) {
-                    $("#mainBlogs").append("<div class=\"ui padded segment m-padded-tb-large m-opacity\"" +"id=\"mainBlog" + i +"\"  >\n" +
-                        "                    <div class=\"ui large aligned mobile reversed stackable grid\">\n" +
-                        "                        <!--博文信息-->\n" +
-                        "                        <div class=\"eleven wide column \">\n" +
-                        "                            <a href='#' class='blogTitle'><h3 class=\"ui header\" >大圣，此去欲何?</h3></a>\n" +
-                        "                            <p class=\"m-text m-margin-top-max\">戴上金箍，没法爱你；放下金箍，没法保护你。我知道上天不会给我第二次机会，曾经我们说好的永远，原来也仅仅只有，十二画，而已。“大圣，此去欲何?”“踏南天，碎凌霄。”“若一去不回……”“便一去不回” 其实很多时候，我们都是有机会的，最后真正放弃的，是我们自己。......</p>\n" +
-                        "                            <div class=\"ui m-margin-top-max grid\">\n" +
-                        "                                <div class=\"eleven wide column\">\n" +
-                        "                                    <div class=\"ui mini horizontal link list\">\n" +
-                        "                                        <div class=\"item\">\n" +
-                        "                                            <img src=\"https://three-blog.oss-cn-beijing.aliyuncs.com/images/head.jpg\"  alt=\"\" class=\"ui avatar image\">\n" +
-                        "                                            <div class=\"content\"><a href=\"#\" target=\"_blank\" class=\"header\" >oneStar</a></div>\n" +
-                        "                                        </div>\n" +
-                        "                                        <div class=\"item\">\n" +
-                        "                                            <i class=\"calendar icon\"></i><span class=\"update_time\">2020-01-01</span>\n" +
-                        "                                        </div>\n" +
-                        "                                        <div class=\"item\">\n" +
-                        "                                            <i class=\"eye icon\"></i> <span class=\"views\">2222</span>\n" +
-                        "                                        </div>\n" +
-                        "                                        <div class=\"item\">\n" +
-                        "                                            <i class=\"comment outline icon\" ></i> <span class=\"messages\">2222</span>\n" +
-                        "                                        </div>\n" +
-                        "                                    </div>\n" +
-                        "                                </div>\n" +
-                        "                                <div class=\"right aligned five wide column\">\n" +
-                        "                                    <a href=\"#\" target=\"_blank\" class=\"ui teal basic label m-padded-tiny m-text-thin\">好文</a>\n" +
-                        "                                </div>\n" +
-                        "                            </div>\n" +
-                        "                        </div>\n" +
-                        "                        <!--博文图片-->\n" +
-                        "                        <div class=\"five wide column\">\n" +
-                        "                            <a href=\"#\" target=\"_blank\" class='blogPicture'>\n" +
-                        "                                <img src=\"https://three-blog.oss-cn-beijing.aliyuncs.com/images/backimg1.jpg\" alt=\"\" class=\"ui rounded image\">\n" +
-                        "                            </a>\n" +
-                        "                        </div>\n" +
-                        "\n" +
-                        "                    </div>\n" +
-                        "                </div>")
+            for (var i = 1; i <= items.length; i++) {
+                $("#mainBlogs").append("<div class=\"ui padded segment m-padded-tb-large m-opacity\"" + "id=\"mainBlog" + i + "\"  >\n" +
+                    "                    <div class=\"ui large aligned mobile reversed stackable grid\">\n" +
+                    "                        <!--博文信息-->\n" +
+                    "                        <div class=\"eleven wide column \">\n" +
+                    "                            <a href='#' class='blogTitle'><h3 class=\"ui header\" >大圣，此去欲何?</h3></a>\n" +
+                    "                            <p class=\"m-text m-margin-top-max\">戴上金箍，没法爱你；放下金箍，没法保护你。我知道上天不会给我第二次机会，曾经我们说好的永远，原来也仅仅只有，十二画，而已。“大圣，此去欲何?”“踏南天，碎凌霄。”“若一去不回……”“便一去不回” 其实很多时候，我们都是有机会的，最后真正放弃的，是我们自己。......</p>\n" +
+                    "                            <div class=\"ui m-margin-top-max grid\">\n" +
+                    "                                <div class=\"eleven wide column\">\n" +
+                    "                                    <div class=\"ui mini horizontal link list\">\n" +
+                    "                                        <div class=\"item\">\n" +
+                    "                                            <img src=\"https://three-blog.oss-cn-beijing.aliyuncs.com/images/head.jpg\"  alt=\"\" class=\"ui avatar image\">\n" +
+                    "                                            <div class=\"content\"><a href=\"#\" target=\"_blank\" class=\"header\" >oneStar</a></div>\n" +
+                    "                                        </div>\n" +
+                    "                                        <div class=\"item\">\n" +
+                    "                                            <i class=\"calendar icon\"></i><span class=\"update_time\">2020-01-01</span>\n" +
+                    "                                        </div>\n" +
+                    "                                        <div class=\"item\">\n" +
+                    "                                            <i class=\"eye icon\"></i> <span class=\"views\">2222</span>\n" +
+                    "                                        </div>\n" +
+                    "                                        <div class=\"item\">\n" +
+                    "                                            <i class=\"comment outline icon\" ></i> <span class=\"messages\">2222</span>\n" +
+                    "                                        </div>\n" +
+                    "                                    </div>\n" +
+                    "                                </div>\n" +
+                    "                                <div class=\"right aligned five wide column\">\n" +
+                    "                                    <a href=\"#\" target=\"_blank\" class=\"ui teal basic label m-padded-tiny m-text-thin\">好文</a>\n" +
+                    "                                </div>\n" +
+                    "                            </div>\n" +
+                    "                        </div>\n" +
+                    "                        <!--博文图片-->\n" +
+                    "                        <div class=\"five wide column\">\n" +
+                    "                            <a href=\"#\" target=\"_blank\" class='blogPicture'>\n" +
+                    "                                <img src=\"https://three-blog.oss-cn-beijing.aliyuncs.com/images/backimg1.jpg\" alt=\"\" class=\"ui rounded image\">\n" +
+                    "                            </a>\n" +
+                    "                        </div>\n" +
+                    "\n" +
+                    "                    </div>\n" +
+                    "                </div>")
+            }
+
+            for (var i = 1; i <= items.length; i++) {
+                // var biaoqian = $("#mainBlog1").children().children();
+                if (items != undefined) {
+                    $("#mainBlog" + i).find("h3").html(items[i - 1].title);
+                    $("#mainBlog" + i).find("p").html(items[i - 1].description);
+                    $("#mainBlog" + i).find(".rounded").attr("src", 'https://three-blog.oss-cn-beijing.aliyuncs.com' + items[i - 1].firstPicture);
+                    $("#mainBlog" + i).find("a.header").html("李韵");
+                    $("#mainBlog" + i).find(".m-text-thin").html(items[i - 1].typeName);
+                    $("#mainBlog" + i).find(".update_time").html(items[i - 1].updateTime);
+                    $("#mainBlog" + i).find(".views").html(items[i - 1].views == null ? 0 : items[i - 1].views);
+                    $("#mainBlog" + i).find(".messages").html(items[i - 1].commentCount == null ? 0 : items[i - 1].commentCount);
+                    $("#mainBlog" + i).find(".blogPicture").attr("href", "/bg/" + items[i - 1].id);
+                    $("#mainBlog" + i).find(".blogTitle").attr("href", "/bg/" + items[i - 1].id);
+
+                } else {
+                    $("#recommend" + i).css("visibility", "hidden")
                 }
+            }
+        })
+    }
 
-                for (var i=1; i<=items.length; i++){
-                    // var biaoqian = $("#mainBlog1").children().children();
-                    if (items != undefined) {
-                        $("#mainBlog" + i).find("h3").html(items[i - 1].title);
-                        $("#mainBlog" + i).find("p").html(items[i - 1].description);
-                        $("#mainBlog" + i).find(".rounded").attr("src", 'https://three-blog.oss-cn-beijing.aliyuncs.com'+items[i - 1].firstPicture);
-                        $("#mainBlog" + i).find("a.header").html("李韵");
-                        $("#mainBlog" + i).find(".m-text-thin").html(items[i - 1].typeName);
-                        $("#mainBlog" + i).find(".update_time").html(items[i - 1].updateTime);
-                        $("#mainBlog" + i).find(".views").html(items[i - 1].views == null ? 0 : items[i - 1].views);
-                        $("#mainBlog" + i).find(".messages").html(items[i - 1].commentCount == null ? 0 : items[i - 1].commentCount);
-                        $("#mainBlog"+ i).find(".blogPicture").attr("href", "/bg/" + items[i - 1].id);
-                        $("#mainBlog"+ i).find(".blogTitle").attr("href", "/bg/" + items[i - 1].id);
+    function setRecommendBlogData() {
+        $.get("/blog/latestRecommended/1/4?isRecommend=1", function (data) {
+            items = data.data.data;
+            for (var i = 1; i <= items.length; i++) {
+                $("#recommends").append("<div class=\"m-margin-tb-tiny four wide column\"" + "id=\"recommend" + i + "\"" + ">\n" +
+                    "            <a href=\"#\" class=\"class_outer\" target=\"_blank\">\n" +
+                    "                <img src=\"https://three-blog.oss-cn-beijing.aliyuncs.com/images/backimg1.jpg\" alt=\"\" class=\"ui rounded image\">\n" +
+                    "                <span class=\"class_cover\" >\n" +
+                    "                     <h4 class=\"m-font-size-blog-text m-margin-tb-tiny\">大圣，此去欲何?</h4>\n" +
+                    "                  </span>\n" +
+                    "            </a>\n" +
+                    "        </div>")
+            }
+            ;
 
-                    }else {
-                        $("#recommend" + i).css("visibility", "hidden")
-                    }
+            for (var i = 1; i <= items.length; i++) {
+                if (items != undefined) {
+                    $("#recommend" + i).children().children('span').children('h4').html(items[i - 1].title);
+                    $("#recommend" + i).children().children('img').attr("src", 'https://three-blog.oss-cn-beijing.aliyuncs.com' + items[i - 1].firstPicture)
+                    $("#recommend" + i).find("a").attr("href", "/bg/" + items[i - 1].id);
                 }
-            })
-        }
+            }
+        })
+    }
 
-        function setRecommendBlogData() {
-            $.get("/blog/latestRecommended/1/4?isRecommend=1", function (data) {
-                items = data.data.data;
-                for (var i=1; i <= items.length; i++) {
-                    $("#recommends").append("<div class=\"m-margin-tb-tiny four wide column\"" +"id=\"recommend" + i + "\"" +">\n" +
-                        "            <a href=\"#\" class=\"class_outer\" target=\"_blank\">\n" +
-                        "                <img src=\"https://three-blog.oss-cn-beijing.aliyuncs.com/images/backimg1.jpg\" alt=\"\" class=\"ui rounded image\">\n" +
-                        "                <span class=\"class_cover\" >\n" +
-                        "                     <h4 class=\"m-font-size-blog-text m-margin-tb-tiny\">大圣，此去欲何?</h4>\n" +
-                        "                  </span>\n" +
-                        "            </a>\n" +
-                        "        </div>")
-                };
+    // 渲染推荐博客
+    setRecommendBlogData();
 
-                for (var i=1; i<=items.length; i++){
-                    if (items != undefined) {
-                        $("#recommend" + i).children().children('span').children('h4').html(items[i - 1].title);
-                        $("#recommend" + i).children().children('img').attr("src", 'https://three-blog.oss-cn-beijing.aliyuncs.com'+items[i - 1].firstPicture)
-                        $("#recommend" + i).find("a").attr("href", "/bg/" + items[i - 1].id);
-                    }
-                }
-            })
-        }
-        // 渲染推荐博客
-        setRecommendBlogData();
+    // 渲染主页博客
 
-        // 渲染主页博客
-
-        setMainBlogData();
-   /* })*/
+    setMainBlogData();
+    /* })*/
 </script>
 <body>
 
@@ -121,32 +126,44 @@
 
 <!--顶部图片-->
 <div class="m-bg-class_outer" style="width: 100%;height: 750px">
-    <img src="/images/bg.jpg" th:src="@{https://three-blog.oss-cn-beijing.aliyuncs.com/images/bg.jpg}" alt="" class="ui m-bg image" style="width: 100%;height: 100%">
+    <img src="/images/bg.jpg" th:src="@{https://three-blog.oss-cn-beijing.aliyuncs.com/images/bg.jpg}" alt=""
+         class="ui m-bg image" style="width: 100%;height: 100%">
     <div class="m-bg-class_cover" align="center">
         <div class="m-margin-top-maxx" align="center">
-            <img class="ui circular image" align="center" src="/images/head.jpg" th:src="@{https://three-blog.oss-cn-beijing.aliyuncs.com/images/head.jpg}" style="width: 150px;height: 150px;">
+            <img class="ui circular image" align="center" src="/images/head.jpg"
+                 th:src="@{https://three-blog.oss-cn-beijing.aliyuncs.com/images/head.jpg}"
+                 style="width: 150px;height: 150px;">
         </div>
         <div class="m-font-size-title-large" align="center">ONESTAR</div>
 
         <div class="" align="center">
             <a href="#" class="ui tencent circular icon button"><i class="user icon"></i></a>
             <a href="#" class="ui wechat circular icon button"><i class="weixin icon"></i></a>
-            <a href="#" class="ui qq circular icon button" data-content="316392836" data-position="bottom center"><i class="qq icon"></i></a>
-            <a href="https://github.com/shuiZe-coder/threeBlog2.0" target="_blank" class="ui github circular icon button" data-content="点击跳转GitHub" data-position="bottom center"><i class="github icon"></i></a>
-            <a href="https://blog.csdn.net/One_L_Star" target="_blank" class="ui csdn circular icon button" data-content="点击跳转CSDN" data-position="bottom center"><i class="copyright outline icon"></i></a>
-            <a href="#" class="ui email circular icon button" data-content="1773085230@qq.com" data-position="bottom center"><i class="envelope  icon"></i></a>
+            <a href="#" class="ui qq circular icon button" data-content="316392836" data-position="bottom center"><i
+                    class="qq icon"></i></a>
+            <a href="https://github.com/shuiZe-coder/threeBlog2.0" target="_blank"
+               class="ui github circular icon button" data-content="点击跳转GitHub" data-position="bottom center"><i
+                    class="github icon"></i></a>
+            <a href="https://blog.csdn.net/One_L_Star" target="_blank" class="ui csdn circular icon button"
+               data-content="点击跳转CSDN" data-position="bottom center"><i class="copyright outline icon"></i></a>
+            <a href="#" class="ui email circular icon button" data-content="1773085230@qq.com"
+               data-position="bottom center"><i class="envelope  icon"></i></a>
         </div>
 
         <div class="ui tencent-qr flowing popup transition hidden">
-            <img src="/images/oneStar.jpg" th:src="@{https://three-blog.oss-cn-beijing.aliyuncs.com/images/oneStar.jpg}" alt="" class="ui rounded image" style="width: 110px">
+            <img src="/images/oneStar.jpg" th:src="@{https://three-blog.oss-cn-beijing.aliyuncs.com/images/oneStar.jpg}"
+                 alt="" class="ui rounded image" style="width: 110px">
             <div align="center">公众号</div>
         </div>
         <div class="ui wechat-qr flowing popup transition hidden">
-            <img src="/images/oneStarWechat.jpg" th:src="@{https://three-blog.oss-cn-beijing.aliyuncs.com/images/oneStarWechat.jpg}" alt="" class="ui rounded image" style="width: 110px">
+            <img src="/images/oneStarWechat.jpg"
+                 th:src="@{https://three-blog.oss-cn-beijing.aliyuncs.com/images/oneStarWechat.jpg}" alt=""
+                 class="ui rounded image" style="width: 110px">
             <div align="center">微信</div>
         </div>
         <div class="ui qq-qr flowing popup transition hidden">
-            <img src="/images/qq.jpg" th:src="@{https://three-blog.oss-cn-beijing.aliyuncs.com/images/qq.jpg}" alt="" class="ui rounded image" style="width: 110px">
+            <img src="/images/qq.jpg" th:src="@{https://three-blog.oss-cn-beijing.aliyuncs.com/images/qq.jpg}" alt=""
+                 class="ui rounded image" style="width: 110px">
             <div align="center">QQ</div>
         </div>
 
@@ -158,20 +175,27 @@
         <h5 class="m-font-size-text-init-title">“若一去不回……”</h5>
         <h5 class="m-font-size-text-init-title">“便一去不回”</h5>
         <div id="waypoint" class="ui m-margin-top-large" align="center">
-            <a href="#recommendAnchor" class="ui circular icon button m-opacity-small m-item item m-mobile-hide m-index-btn" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>首页</a>
-            <a href="/types" class="ui circular icon button m-opacity-small m-item item m-mobile-hide m-index-btn" th:classappend="${n==2} ? 'active'"><i class="clone outline icon"></i>分类</a>
-            <a href="/archives" class="ui circular icon button m-opacity-small m-item item m-mobile-hide m-index-btn" th:classappend="${n==4} ? 'active'"><i class="clock icon"></i>时间轴</a>
-            <a href="/music" class="ui circular icon button m-opacity-small m-item item m-mobile-hide m-index-btn" th:classappend="${n==5} ? 'active'"><i class="music icon"></i>音乐盒</a>
-            <a href="/message" class="ui circular icon button m-opacity-small m-item item m-mobile-hide m-index-btn" th:classappend="${n==6} ? 'active'"><i class="book icon"></i>留言板</a>
-<!--            <a href="#" class="ui circular icon button m-opacity-small m-item item m-mobile-hide m-index-btn" th:classappend="${n==7} ? 'active'"><i class="pencil alternate icon"></i>友人帐</a>-->
-            <a href="/picture" class="ui circular icon button m-opacity-small m-item item m-mobile-hide m-index-btn" th:classappend="${n==8} ? 'active'"><i class="image icon"></i>照片墙</a>
-            <a href="/about" class="ui circular icon button m-opacity-small m-item item m-mobile-hide m-index-btn" th:classappend="${n==9} ? 'active'"><i class="info icon"></i>O</a>
+            <a href="#recommendAnchor"
+               class="ui circular icon button m-opacity-small m-item item m-mobile-hide m-index-btn"
+               th:classappend="${n==1} ? 'active'"><i class="home icon"></i>首页</a>
+            <a href="/types" class="ui circular icon button m-opacity-small m-item item m-mobile-hide m-index-btn"
+               th:classappend="${n==2} ? 'active'"><i class="clone outline icon"></i>分类</a>
+            <a href="/archives" class="ui circular icon button m-opacity-small m-item item m-mobile-hide m-index-btn"
+               th:classappend="${n==4} ? 'active'"><i class="clock icon"></i>时间轴</a>
+            <a href="/music" class="ui circular icon button m-opacity-small m-item item m-mobile-hide m-index-btn"
+               th:classappend="${n==5} ? 'active'"><i class="music icon"></i>音乐盒</a>
+            <a href="/message" class="ui circular icon button m-opacity-small m-item item m-mobile-hide m-index-btn"
+               th:classappend="${n==6} ? 'active'"><i class="book icon"></i>留言板</a>
+            <!--            <a href="#" class="ui circular icon button m-opacity-small m-item item m-mobile-hide m-index-btn" th:classappend="${n==7} ? 'active'"><i class="pencil alternate icon"></i>友人帐</a>-->
+            <a href="/picture" class="ui circular icon button m-opacity-small m-item item m-mobile-hide m-index-btn"
+               th:classappend="${n==8} ? 'active'"><i class="image icon"></i>照片墙</a>
+            <a href="/about" class="ui circular icon button m-opacity-small m-item item m-mobile-hide m-index-btn"
+               th:classappend="${n==9} ? 'active'"><i class="info icon"></i>O</a>
         </div>
         <div class="hiddenDiv"></div>
     </div>
 
 </div>
-
 
 
 <!--最新推荐-->
@@ -208,7 +232,7 @@
                 </div>
 
                 <div class="ten wide column" align="center">
-                    <p> <span></span> / <span></span> </p>
+                    <p><span></span> / <span></span></p>
                 </div>
 
                 <div class="three wide column" align="center">
@@ -228,7 +252,6 @@
 </div>
 
 
-
 <br>
 <br>
 <br>
@@ -236,10 +259,9 @@
 <div th:replace="~{commons::footbar}"></div>
 
 
-
-
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
-<script src="/lib/waypoints/jquery.waypoints.min.js" th:src="@{https://three-blog.oss-cn-beijing.aliyuncs.com/lib/waypoints/jquery.waypoints.min.js}"></script>
+<script src="/lib/waypoints/jquery.waypoints.min.js"
+        th:src="@{https://three-blog.oss-cn-beijing.aliyuncs.com/lib/waypoints/jquery.waypoints.min.js}"></script>
 
 <script>
 
@@ -275,6 +297,7 @@
         }
         return time;
     }
+
     function setTime() {
         /*此处为网站的创建时间*/
         var create_time = Math.round(new Date(Date.UTC(2020, 01, 25, 15, 15, 15)).getTime() / 1000);
@@ -285,6 +308,7 @@
             + '秒';
         document.getElementById("htmer_time").innerHTML = currentTimeHtml;
     }
+
     setInterval(setTime, 1000);
 
 
@@ -295,19 +319,19 @@
 
     // 显示公众号
     $('.tencent').popup({
-        popup : $('.tencent-qr'),
+        popup: $('.tencent-qr'),
         position: 'bottom center'
     });
 
     // 显示微信
     $('.wechat').popup({
-        popup : $('.wechat-qr'),
+        popup: $('.wechat-qr'),
         position: 'bottom center'
     });
 
     // 显示QQ
     $('.qq').popup({
-        popup : $('.qq-qr'),
+        popup: $('.qq-qr'),
         position: 'bottom center'
     });
 
@@ -323,7 +347,7 @@
     // 导航栏显示
     var waypoint = new Waypoint({
         element: document.getElementById('waypoint'),
-        handler: function(direction) {
+        handler: function (direction) {
             if (direction == 'down') {
                 $('#nav').show(500);
             } else {
@@ -334,4 +358,5 @@
     })
 </script>
 </body>
+
 </html>
