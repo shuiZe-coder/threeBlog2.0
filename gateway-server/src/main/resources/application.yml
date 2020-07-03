@@ -16,14 +16,13 @@ spring:
           uri: lb://blog-picture-manage-service-provider
           order: 0
           predicates:
-            - Path=/admin/picture/**
+            - Path=/admin/picture/**,/picture/**
 
         - id: blog-admin-consumer-01
           uri: lb://blog-manage-service-consumer
           order: 1
           predicates:
             - Path=/**
-
 
 
 

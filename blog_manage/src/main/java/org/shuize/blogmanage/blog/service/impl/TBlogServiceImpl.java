@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.swagger.models.auth.In;
 import javassist.NotFoundException;
+import org.commonmark.node.Link;
 import org.shuize.blogmanage.blog.mapper.TBlogMapper;
 import org.shuize.blogmanage.blog.pojo.TBlog;
 import org.shuize.blogmanage.blog.pojo.vo.*;
@@ -22,6 +23,7 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -90,7 +92,8 @@ public class TBlogServiceImpl extends ServiceImpl<TBlogMapper, TBlog> implements
         for (TBlog blog: page.getRecords()){
             BlogAndType blogAndType = new BlogAndType();
             BeanUtils.copyProperties(blog, blogAndType);
-            String typeName = (String)typeRemoteCallerService.getTypeById(blog.getTypeId()).getData().get("name");
+            LinkedHashMap<Object, String> data = (LinkedHashMap<Object, String>)typeRemoteCallerService.getTypeById(blog.getTypeId()).getData().get("data");
+            String typeName = data.get("name");
             blogAndType.setTypeName(typeName);
             result.add(blogAndType);
         }

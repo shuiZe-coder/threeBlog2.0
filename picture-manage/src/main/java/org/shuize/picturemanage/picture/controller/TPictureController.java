@@ -28,6 +28,10 @@ public class TPictureController {
     private TPictureService pictureService;
 
 
+    @GetMapping("/picture")
+    public String picture(){
+        return "picture";
+    }
 
     @GetMapping("/picture/{current}/{limit}")
     @ResponseBody
@@ -51,7 +55,7 @@ public class TPictureController {
     @PostMapping("/admin/picture/upload")
     public String upload(@RequestPart(value = "images", required = false) MultipartFile[] files){
             List<String> path = pictureService.uploadFile(files);
-            return "redirect:/admin/picture/manage";
+            return "redirect:http://localhost:9001/admin/picture/manage";
         }
 }
 

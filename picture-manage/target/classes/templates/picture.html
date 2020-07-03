@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONESTAR-照片墙</title>
+    <link href="../static/images/me.jpg" th:href="@{/images/me.jpg}" rel="icon" type="image/x-ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/css/me.css}">
+    <link rel="stylesheet" href="../static/lib/picture/css/jkresponsivegallery.css"
+          th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/lib/picture/css/jkresponsivegallery.css}">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+
+</head>
+<body>
+
+<script>
+    $(function () {
+        $(".icon-cross").html("关闭");
+        $(".icon-cross").css("font-size", "12px");
+        $(".icon-arrow-left").html("上一张");
+        $(".icon-arrow-left").css("font-size", "12px");
+        $(".icon-arrow-left").removeClass("icon-arrow-left");
+        $(".icon-arrow-right").html("下一张");
+        $(".icon-arrow-right").css("font-size", "12px");
+
+        $(".icon-arrow-right").css({"background":"url(data:image/jpeg;base64,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)"});
+        $(".icon-arrow-right").removeClass("icon-arrow-right");
+
+
+        $.get("/picture/1/10000", function (data) {
+            var items = data.data.data;
+            for (var i=0; i<items.length; i++) {
+                $("#picture-main").append('<article class="thumb">\n' +
+                    '        <div class="ma5-gallery">\n' +
+                    '            <div class="rthumbnail">\n' +
+                    '                <a  href="' + items[i].pictureaddress + '">\n' +
+                    '                    <img class="picture-zmki_px"  src="' + items[i].pictureaddress  + '">\n' +
+                    '                </a>\n' +
+                    '                <div class="m-picture-text"></div>\n' +
+                    '                <div class="rcaption">\n' +
+                    '                    <div style="font-size: large;">' + items[i].picturename + '</div>\n' +
+                    '                    <div style="font-size: small" class="m-margin-top">' + items[i].picturetime +'</div>\n' +
+                    '                </div>\n' +
+                    '            </div>\n' +
+                    '        </div>\n' +
+                    '    </article>')
+            }
+
+        })
+    })
+
+</script>
+
+<!--导航-->
+<div th:replace="~{commons::topbar}"></div>
+
+<!--顶部图片-->
+<div class="m-bg-type_outer" style="width: 100%;height: 40%">
+    <img src="../static/images/picturebg.jpg" th:src="@{https://three-blog.oss-cn-beijing.aliyuncs.com/images/picturebg.jpg}" alt="" class="ui m-bg image"
+         style="width: 100%;height: 100%">
+    <div class="m-bg-class_cover">
+        <div class="ui container" style="position: relative ;bottom: -540px;">
+            <div class="m-font-size-title m-right-bottom" align="center" style="font-family:'STXingkai'">照片墙</div>
+            <div class="m-font-size-text-init-title m-margin-top" align="center">愿你走出半生，归来仍是少年</div>
+        </div>
+    </div>
+</div>
+
+
+<!--照片墙-->
+<div id="picture-main">
+
+</div>
+
+
+<!--底部栏-->
+<div th:replace="~{commons::footbar}"></div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<script src="../static/lib/picture/js/jquery.min.js" th:src="@{https://three-blog.oss-cn-beijing.aliyuncs.com/lib/picture/js/jquery.min.js}"></script>
+<script src="../static/lib/picture/js/jkresponsivegallery.js"
+        th:src="@{https://three-blog.oss-cn-beijing.aliyuncs.com/lib/picture/js/jkresponsivegallery.js}"></script>
+
+
+<script>
+
+    // $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
+
+
+    // 运行时间统计
+    function secondToDate(second) {
+        if (!second) {
+            return 0;
+        }
+        var time = new Array(0, 0, 0, 0, 0);
+        if (second >= 365 * 24 * 3600) {
+            time[0] = parseInt(second / (365 * 24 * 3600));
+            second %= 365 * 24 * 3600;
+        }
+        if (second >= 24 * 3600) {
+            time[1] = parseInt(second / (24 * 3600));
+            second %= 24 * 3600;
+        }
+        if (second >= 3600) {
+            time[2] = parseInt(second / 3600);
+            second %= 3600;
+        }
+        if (second >= 60) {
+            time[3] = parseInt(second / 60);
+            second %= 60;
+        }
+        if (second > 0) {
+            time[4] = second;
+        }
+        return time;
+    }
+
+    function setTime() {
+        /*此处为网站的创建时间*/
+        var create_time = Math.round(new Date(Date.UTC(2020, 01, 25, 15, 15, 15)).getTime() / 1000);
+        var timestamp = Math.round((new Date().getTime() + 8 * 60 * 60 * 1000) / 1000);
+        currentTime = secondToDate((timestamp - create_time));
+        currentTimeHtml = currentTime[0] + '年' + currentTime[1] + '天'
+            + currentTime[2] + '时' + currentTime[3] + '分' + currentTime[4]
+            + '秒';
+        document.getElementById("htmer_time").innerHTML = currentTimeHtml;
+    }
+
+    setInterval(setTime, 1000);
+
+    $(function () {
+        $('.rthumbnail').responsivegallery();
+    });
+
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    $('#nav').show(500);
+
+    $("#picture-ada").addClass("active");
+
+</script>
+</body>
+</html>
