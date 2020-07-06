@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +8,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <link rel="stylesheet" href="https://three-blog.oss-cn-beijing.aliyuncs.com/lib/editormd/css/editormd.min.css"
           th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/lib/editormd/css/editormd.min.css}">
-    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/css/me.css}">
+    <link rel="stylesheet" href="../../static/css/me.css"
+          th:href="@{https://three-blog.oss-cn-beijing.aliyuncs.com/css/me.css}">
 </head>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+
+
 <body>
+
+
 
 <!--导航-->
 <nav th:replace="~{/admin/common::topbar}"></nav>
@@ -130,12 +136,19 @@
 <footer th:replace="~{/admin/common::footbar}"></footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
 <script src="../../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
 
 
 <script>
+
+    var int=self.setInterval("clock()",10);
+    function clock()
+    {
+        $(".editormd-menu").hide();
+    }
+
+
 
     // $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
 
@@ -208,6 +221,9 @@
 
 
     function typeId() {
+
+
+
         if ($("#typeBox").children().length == 0) {
             $.get('/type', function (data) {
                 for (var i = 0; i < data.data.data.length; i++) {
@@ -243,7 +259,7 @@
             "typeId": blogType,
             "firstPicture": firstPicture,
             "description": description,
-            "flag":flag,
+            "flag": flag,
             "published": published,
 
         };
@@ -274,12 +290,12 @@
         });
         //发起ajax请求
         $.post("/blog", JSON.stringify(form_data), function (data) {
-            if (data.code == 200){
+            if (data.code == 200) {
                 location.href = "/admin/article/manage";
-            }else{
-                if (published == false){
+            } else {
+                if (published == false) {
                     alert("保存失败");
-                }else{
+                } else {
                     alert("发布失败");
                 }
             }
@@ -294,9 +310,12 @@
     });
     $("#publish-btn").click(function () {
         postData(true);
-    })
+    });
+
+
 
 
 </script>
 </body>
+t
 </html>

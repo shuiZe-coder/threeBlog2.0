@@ -12,13 +12,12 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @CrossOrigin
-@RequestMapping("/admin")
 public class LoginPageController {
 
     @Autowired
     private LoginRemoteService loginRemoteService;
 
-    @GetMapping("/login")
+    @GetMapping("/admin/login")
     public String login(){
         return "admin/login";
     }
@@ -28,7 +27,7 @@ public class LoginPageController {
     public RespUtil verify(HttpSession session,  @RequestBody TUser user){
         RespUtil result = loginRemoteService.verify(user);
         if (result.getCode() == 200){
-            session.setAttribute("user", user.getNickname());
+            session.setAttribute("user", user.getUsername());
         }
         return result;
     }
